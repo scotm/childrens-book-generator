@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { useUser } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useUser } from '@clerk/nextjs';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 // Mock data - this would come from your database in a real application
 const mockStories = [
   {
-    id: "story-1",
+    id: 'story-1',
     title: "Emily's Magical Adventure",
-    createdAt: "2025-03-10",
-    thumbnail: "/story-thumbnail-1.jpg",
-    readingLevel: "beginner",
+    createdAt: '2025-03-10',
+    thumbnail: '/story-thumbnail-1.jpg',
+    readingLevel: 'beginner',
   },
   {
-    id: "story-2",
-    title: "Max and Rex the Dinosaur",
-    createdAt: "2025-03-08",
-    thumbnail: "/story-thumbnail-2.jpg",
-    readingLevel: "intermediate",
+    id: 'story-2',
+    title: 'Max and Rex the Dinosaur',
+    createdAt: '2025-03-08',
+    thumbnail: '/story-thumbnail-2.jpg',
+    readingLevel: 'intermediate',
   },
   {
-    id: "story-3",
+    id: 'story-3',
     title: "Sophie's Journey to Space",
-    createdAt: "2025-03-05",
-    thumbnail: "/story-thumbnail-3.jpg",
-    readingLevel: "advanced",
+    createdAt: '2025-03-05',
+    thumbnail: '/story-thumbnail-3.jpg',
+    readingLevel: 'advanced',
   },
 ];
 
@@ -44,14 +44,14 @@ export default function Dashboard() {
         // In a real app, this would be an API call like:
         // const response = await fetch('/api/stories');
         // const data = await response.json();
-        
+
         // Using mock data for now
         setTimeout(() => {
           setStories(mockStories);
           setIsLoading(false);
         }, 1000);
       } catch (error) {
-        console.error("Error loading stories:", error);
+        console.error('Error loading stories:', error);
         setIsLoading(false);
       }
     };
@@ -71,7 +71,7 @@ export default function Dashboard() {
             </Link>
             <h1 className="text-3xl font-bold tracking-tight">My Stories</h1>
             <p className="text-muted-foreground">
-              Welcome back, {user?.firstName || "Reader"}! Here are your created stories.
+              Welcome back, {user?.firstName || 'Reader'}! Here are your created stories.
             </p>
           </div>
           <Link href="/create">
@@ -103,7 +103,7 @@ export default function Dashboard() {
                   <div className="aspect-[4/3] relative">
                     {/* Placeholder image - your app would use real thumbnails */}
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-200 to-purple-200 flex items-center justify-center">
-                      <p className="text-lg font-medium">{story.title.split(" ")[0]}</p>
+                      <p className="text-lg font-medium">{story.title.split(' ')[0]}</p>
                     </div>
                   </div>
                   <CardHeader>

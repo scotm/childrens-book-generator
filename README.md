@@ -1,6 +1,6 @@
 # Story Sprout - Children's Book Generator
 
-Story Sprout is a personalized children's book generator that creates custom stories featuring your child and their pets. This application allows you to create engaging stories based on your child's name, age, reading level, and other personal details.
+Story Sprout is a personalized children's book generator that creates custom stories featuring your child, friends and pets. This application allows you to create engaging stories based on your child's name, age, reading level, and other personal details.
 
 ## Features
 
@@ -34,12 +34,14 @@ Story Sprout is a personalized children's book generator that creates custom sto
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/childrens-book-generator.git
    cd childrens-book-generator
    ```
 
 2. Install dependencies:
+
    ```bash
    bun install
    # or
@@ -47,10 +49,12 @@ Story Sprout is a personalized children's book generator that creates custom sto
    ```
 
 3. Set up environment variables:
+
    - Copy `.env.example` to `.env.local`
-   - Add your Clerk and OpenAI API keys
+   - Add your Clerk, OpenAI and Database URL keys and secrets
 
 4. Run the development server:
+
    ```bash
    bun dev
    # or

@@ -1,6 +1,6 @@
 // src/env.mjs
-import { createEnv } from "@t3-oss/env-nextjs";
-import { z } from "zod";
+import { createEnv } from '@t3-oss/env-nextjs';
+import { z } from 'zod';
 
 export const env = createEnv({
   /*
@@ -11,6 +11,7 @@ export const env = createEnv({
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
     CLERK_SECRET_KEY: z.string(),
     OPENAI_API_KEY: z.string(),
+    DATABASE_URL: z.string(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -27,9 +28,9 @@ export const env = createEnv({
    * 💡 You'll get type errors if not all variables from `server` & `client` are included here.
    */
   runtimeEnv: {
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
-      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+    DATABASE_URL: process.env.DATABASE_URL,
   },
 });

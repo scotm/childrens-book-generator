@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import {
   ClerkProvider,
   SignInButton,
@@ -6,16 +5,17 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
-} from "@clerk/nextjs";
-import { Inter } from "next/font/google";
-import Link from "next/link";
-import "./globals.css";
+} from '@clerk/nextjs';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import Link from 'next/link';
+import './globals.css';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: "Story Sprout - Personalized Children's Books",
-  description: "Create custom stories for your children featuring their names, pictures, and pets",
+  description: 'Create custom stories for your children featuring their names, pictures, and pets',
 };
 
 export default function RootLayout({
@@ -45,9 +45,7 @@ export default function RootLayout({
                   </SignedIn>
                   <SignedOut>
                     <SignInButton mode="modal">
-                      <button className="text-sm font-medium hover:underline">
-                        Sign In
-                      </button>
+                      <button className="text-sm font-medium hover:underline">Sign In</button>
                     </SignInButton>
                     <SignUpButton mode="modal">
                       <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-sm font-medium">

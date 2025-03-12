@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useUser } from "@clerk/nextjs";
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useUser } from '@clerk/nextjs';
+import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Home() {
   const { user } = useUser();
@@ -70,13 +70,13 @@ export default function Home() {
           <Card>
             <CardHeader>
               <CardTitle>My Stories</CardTitle>
-              <CardDescription>
-                View and read stories you've already created
-              </CardDescription>
+              <CardDescription>View and read stories you've already created</CardDescription>
             </CardHeader>
             <CardContent className="flex justify-center">
               <Link href="/dashboard">
-                <Button size="lg" variant="outline">View Library</Button>
+                <Button size="lg" variant="outline">
+                  View Library
+                </Button>
               </Link>
             </CardContent>
           </Card>
