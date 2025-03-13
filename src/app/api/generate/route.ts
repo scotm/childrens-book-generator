@@ -5,7 +5,7 @@ import { openai } from '@ai-sdk/openai';
 import { type GenerateStorySchema, generateStorySchema, storySchema } from '@/types/stories';
 import { env } from '@/env.mjs';
 
-export async function POST(req: Request) {
+export async function POST(req: Request, openaiConfig?: { model: string }) {
   if (env.AUTH_NEEDED) {
     const { userId } = await auth();
     if (!userId) {
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 
   const prompt = constructStoryPrompt(validationResult.data);
 
-  const model = openai('gpt-4o-mini');
+  const model = openai(openaiConfig?.model || 'gpt-4o-mini');
 
   try {
     const storyResponse = await generateObject({
@@ -32,31 +32,48 @@ export async function POST(req: Request) {
     });
     return NextResponse.json(storyResponse);
   } catch (error) {
-    console.error('Failed to generate story:', error);
+    if (error instanceof Error && error.message.includes('OpenAI')) {
+      // Example: Check for OpenAI errors
+      return new NextResponse('Error communicating with OpenAI.', {
+        status: 500,
+      });
+    }
+    if (error instanceof Error && error.message.includes('validation')) {
+      return new NextResponse('Invalid request body', { status: 400 });
+    }
+    if (error instanceof Error && error.message.includes('rate limit')) {
+      return new NextResponse('Rate limit exceeded', { status: 429 });
+    }
+
     return new NextResponse('Failed to generate story', {
       status: 500,
     });
   }
 }
-
 const constructStoryPrompt = (validationResult: GenerateStorySchema) => {
   const { childName, childAge, readingLevel, petName, petType, storyTheme, additionalDetails } =
     validationResult;
 
-  const promptPieces: string[] = [];
+  const ageRange =
+    readingLevel === 'beginner'
+      ? 'ages 3-5'
+      : readingLevel === 'intermediate'
+        ? 'ages 6-8'
+        : 'ages 9-12';
 
-  promptPieces.push(`Create a children's story with the following details:
+  const basePrompt = `Create a children's story with the following details:
 - Main character: ${childName}, who is ${childAge} years old
-- Reading level: ${readingLevel} (${readingLevel === 'beginner' ? 'ages 3-5' : readingLevel === 'intermediate' ? 'ages 6-8' : 'ages 9-12'})
-- Theme: ${storyTheme}`);
+- Reading level: ${readingLevel} (${ageRange})
+- Theme: ${storyTheme}`;
 
-  if (petName && petType) promptPieces.push(`- Pet: ${petName} the ${petType}`);
+  let prompt = basePrompt;
 
-  if (additionalDetails) promptPieces.push(`- Additional details: ${additionalDetails}`);
+  if (petName && petType) prompt += `\n- Pet: ${petName} the ${petType}`;
 
-  promptPieces.push(
-    '\nPlease structure the story in JSON format with a title and content array. The content array should alternate between text and places for illustrations.'
-  );
+  if (additionalDetails) prompt += `\n- Additional details: ${additionalDetails}`;
 
-  return promptPieces.join('\n');
+  prompt +=
+    '\nPlease structure the story in JSON format with a title and content array. The content array should alternate between text and places for illustrations.';
+
+  return prompt;
 };

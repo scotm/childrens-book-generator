@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { Story } from '@/types/stories';
+import type { Story } from '@/db/schema';
 import { useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,23 +11,29 @@ import { useEffect, useState } from 'react';
 // Mock data - this would come from your database in a real application
 const mockStories: Story[] = [
   {
-    id: 'story-1',
+    id: 1,
+    user_id: 'user_1',
     title: "Emily's Magical Adventure",
-    createdAt: '2025-03-10',
+    createdAt: new Date('2025-03-10'),
+    updatedAt: new Date('2025-03-10'),
     thumbnail: '/story-thumbnail-1.jpg',
     readingLevel: 'beginner',
   },
   {
-    id: 'story-2',
+    id: 2,
+    user_id: 'user_1',
     title: 'Max and Rex the Dinosaur',
-    createdAt: '2025-03-08',
+    createdAt: new Date('2025-03-08'),
+    updatedAt: new Date('2025-03-08'),
     thumbnail: '/story-thumbnail-2.jpg',
     readingLevel: 'intermediate',
   },
   {
-    id: 'story-3',
+    id: 3,
+    user_id: 'user_1',
     title: "Sophie's Journey to Space",
-    createdAt: '2025-03-05',
+    createdAt: new Date('2025-03-05'),
+    updatedAt: new Date('2025-03-05'),
     thumbnail: '/story-thumbnail-3.jpg',
     readingLevel: 'advanced',
   },
@@ -112,7 +118,9 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-center justify-between text-sm text-muted-foreground">
-                      <span>Created {new Date(story.createdAt).toLocaleDateString()}</span>
+                      <span>
+                        Created {story.createdAt ? story.createdAt.toLocaleDateString() : ''}
+                      </span>
                       <span className="capitalize">{story.readingLevel}</span>
                     </div>
                   </CardContent>

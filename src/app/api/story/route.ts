@@ -1,33 +1,10 @@
 import { auth } from '@clerk/nextjs/server';
-import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import db from '@/db';
 import { storiesTable, storyChaptersTable, storyContentTable } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { storySchema } from '@/types/stories';
-
-// Error response helper
-const createErrorResponse = (status: number, message: string, code: string, details?: unknown) => {
-  return NextResponse.json(
-    {
-      success: false,
-      error: {
-        message,
-        code,
-        details,
-      },
-    },
-    { status }
-  );
-};
-
-// Success response helper
-const createSuccessResponse = <T>(data: T) => {
-  return NextResponse.json({
-    success: true,
-    data,
-  });
-};
+import { createErrorResponse, createSuccessResponse } from '@/lib/responseHelpers';
 
 // GET /api/story - Get all stories for the current user
 export async function GET(req: Request) {
@@ -128,7 +105,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const { title, chapters } = validationResult.data;
+    const { title, chapters, thumbnail, readingLevel } = validationResult.data;
 
     // Start a transaction
     return await db.transaction(async (tx) => {
@@ -138,6 +115,8 @@ export async function POST(req: Request) {
         .values({
           title,
           user_id: userId,
+          thumbnail: thumbnail,
+          readingLevel: readingLevel,
         })
         .returning();
 
@@ -222,6 +201,8 @@ export async function PUT(req: Request) {
     // Parse and validate request body
     const updateSchema = z.object({
       title: z.string().min(1),
+      thumbnail: z.string(),
+      readingLevel: z.enum(['beginner', 'intermediate', 'advanced']),
     });
 
     const body = await req.json();
@@ -236,14 +217,15 @@ export async function PUT(req: Request) {
       );
     }
 
-    const { title } = validationResult.data;
+    const { title, thumbnail, readingLevel } = validationResult.data;
 
     // Update the story
     const [updatedStory] = await db
       .update(storiesTable)
       .set({
         title,
-        updatedAt: new Date(),
+        thumbnail,
+        readingLevel,
       })
       .where(eq(storiesTable.id, id))
       .returning();

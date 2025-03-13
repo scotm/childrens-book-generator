@@ -30,6 +30,8 @@ export const storyChapterSchema = z.object({
 export const storySchema = z.object({
   title: z.string(),
   chapters: z.array(storyChapterSchema),
+  thumbnail: z.string(),
+  readingLevel: z.enum(['beginner', 'intermediate', 'advanced']),
 });
 
 // Define the type based on the schema

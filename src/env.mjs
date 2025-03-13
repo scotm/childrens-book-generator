@@ -12,7 +12,7 @@ export const env = createEnv({
     CLERK_SECRET_KEY: z.string(),
     OPENAI_API_KEY: z.string(),
     DATABASE_URL: z.string(),
-    AUTH_NEEDED: z.boolean().optional().default(true),
+    AUTH_NEEDED: z.coerce(z.boolean().optional().default(true)),
   },
   /*
    * Environment variables available on the client (and server).
