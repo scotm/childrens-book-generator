@@ -1,5 +1,8 @@
+import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 
-import { env } from '../env.mjs';
+// biome-ignore lint/style/noNonNullAssertion: <explanation>
+const sql = neon(process.env.DATABASE_URL!);
+const db = drizzle({ client: sql });
 
-export const db = drizzle(env.DATABASE_URL);
+export default db;

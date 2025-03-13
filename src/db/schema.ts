@@ -1,16 +1,26 @@
-import { integer, jsonb, pgTable, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { integer, jsonb, pgTable, timestamp, varchar, text, pgEnum } from 'drizzle-orm/pg-core';
 
-export const usersTable = pgTable('users', {
+export const storiesTable = pgTable('stories', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  name: varchar({ length: 255 }).notNull(),
-  email: varchar({ length: 255 }).notNull().unique(),
+  user_id: text('user_id').notNull(),
+  title: varchar({ length: 255 }).notNull(),
   createdAt: timestamp().defaultNow(),
   updatedAt: timestamp().defaultNow(),
 });
 
-export const storiesTable = pgTable('stories', {
+export const storyChaptersTable = pgTable('story_chapters', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  story_id: integer('story_id').references(() => storiesTable.id),
+  chapter_number: integer('chapter_number').notNull(),
   title: varchar({ length: 255 }).notNull(),
+});
+
+export const contentTypeEnum = pgEnum('content_type', ['text', 'image']);
+
+export const storyContentTable = pgTable('story_content', {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  chapter_id: integer('chapter_id').references(() => storyChaptersTable.id),
+  content_number: integer('content_number').notNull(),
+  type: contentTypeEnum('type').notNull(),
   content: jsonb().notNull(),
-  userId: integer().references(() => usersTable.id),
 });

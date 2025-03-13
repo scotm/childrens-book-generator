@@ -2,13 +2,14 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import type { Story } from '@/types/stories';
 import { useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 // Mock data - this would come from your database in a real application
-const mockStories = [
+const mockStories: Story[] = [
   {
     id: 'story-1',
     title: "Emily's Magical Adventure",
@@ -34,7 +35,7 @@ const mockStories = [
 
 export default function Dashboard() {
   const { user } = useUser();
-  const [stories, setStories] = useState([]);
+  const [stories, setStories] = useState<typeof mockStories>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
