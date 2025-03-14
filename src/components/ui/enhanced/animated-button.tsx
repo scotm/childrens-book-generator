@@ -18,15 +18,15 @@ export const AnimatedButton = ({
         return {
           whileHover: { scale: 1.05 },
           whileTap: { scale: 0.95 },
-          transition: { type: 'spring', stiffness: 400, damping: 10 }
+          transition: { type: 'spring', stiffness: 400, damping: 10 },
         };
       case 'pulse':
         return {
-          whileHover: { 
-            boxShadow: '0 0 15px 5px rgba(99, 102, 241, 0.5)', 
-            scale: 1.02 
+          whileHover: {
+            boxShadow: '0 0 15px 5px rgba(99, 102, 241, 0.5)',
+            scale: 1.02,
           },
-          transition: { duration: 0.2 }
+          transition: { duration: 0.2 },
         };
       default:
         return {};
@@ -34,10 +34,7 @@ export const AnimatedButton = ({
   };
 
   return (
-    <motion.div
-      className="inline-block"
-      {...getAnimationProps()}
-    >
+    <motion.div className="inline-block" {...getAnimationProps()}>
       <Button
         className={cn(
           'font-medium transition-all duration-200',

@@ -16,7 +16,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const quicksand = Quicksand({
   subsets: ['latin'],
   variable: '--font-display',
-  weight: ['400', '600', '700']
+  weight: ['400', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -94,20 +94,23 @@ export default function RootLayout({
                     </div>
                     <div className="flex gap-6">
                       <Link
-                        href="#"
+                        href="/privacy"
                         className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                        aria-label="Privacy Policy"
                       >
                         Privacy
                       </Link>
                       <Link
-                        href="#"
+                        href="/terms"
                         className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                        aria-label="Terms of Service"
                       >
                         Terms
                       </Link>
                       <Link
-                        href="#"
+                        href="/help"
                         className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                        aria-label="Help and FAQ"
                       >
                         Help
                       </Link>

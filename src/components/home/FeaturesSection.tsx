@@ -2,33 +2,38 @@
 
 import Image from 'next/image';
 import { ScrollReveal, StaggerContainer } from '@/components/ui/enhanced/animated-elements';
-import { EnhancedCard, CardContent, CardHeader, CardTitle } from '@/components/ui/enhanced/enhanced-card';
+import {
+  EnhancedCard,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/enhanced/enhanced-card';
 
 const features = [
   {
-    id: "personalized",
-    title: "Personalized Heroes",
-    description: "Stories star your child and their pets as the main characters",
-    icon: "👧"
+    id: 'personalized',
+    title: 'Personalized Heroes',
+    description: 'Stories star your child and their pets as the main characters',
+    icon: '👧',
   },
   {
-    id: "reading-level",
-    title: "Read-Level Matched",
+    id: 'reading-level',
+    title: 'Read-Level Matched',
     description: "Content tailored to your child's reading level",
-    icon: "📚"
+    icon: '📚',
   },
   {
-    id: "themes",
-    title: "Magical Themes",
-    description: "Choose from fantasy, adventure, space exploration and more",
-    icon: "✨"
+    id: 'themes',
+    title: 'Magical Themes',
+    description: 'Choose from fantasy, adventure, space exploration and more',
+    icon: '✨',
   },
   {
-    id: "illustrations",
-    title: "Illustrated Joy",
-    description: "Vibrant illustrations bring the stories to life",
-    icon: "🎨"
-  }
+    id: 'illustrations',
+    title: 'Illustrated Joy',
+    description: 'Vibrant illustrations bring the stories to life',
+    icon: '🎨',
+  },
 ];
 
 export const FeaturesSection = () => {
@@ -45,12 +50,12 @@ export const FeaturesSection = () => {
             </p>
           </div>
         </ScrollReveal>
-        
+
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature) => (
             <EnhancedCard
               key={feature.id}
-              variant="gradient" 
+              variant="gradient"
               className="text-center h-full"
               hoverEffect="lift"
             >

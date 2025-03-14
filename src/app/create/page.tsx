@@ -1,3 +1,4 @@
+// src/app/create/page.tsx
 'use client';
 
 import { useUser } from '@clerk/nextjs';
@@ -8,12 +9,22 @@ import { useState } from 'react';
 import { z } from 'zod';
 
 import type { OurFileRouter } from '@/app/api/uploadthing/core';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
+import {
+  EnhancedCard,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/enhanced/enhanced-card';
+import { EnhancedFormField } from '@/components/ui/enhanced/enhanced-form-field';
+import { EnhancedSelect } from '@/components/ui/enhanced/enhanced-select';
+import { FadeIn, SlideIn, StaggerContainer } from '@/components/ui/enhanced/animated-elements';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { ThemeSelector } from '@/components/create/theme-selector';
 import { UploadButton } from '@uploadthing/react';
+import { motion } from 'framer-motion';
+import { CloseIcon, LoadingSpinner } from '@/components/ui/icons';
 
 // Form schema with validation rules
 const formSchema = z.object({
@@ -39,6 +50,23 @@ type FormError = {
   message?: string;
   path?: string[];
 };
+
+// Theme options with icons and colors
+const themeOptions = [
+  { value: 'adventure', label: 'Adventure', icon: '🏕️', color: '#FFD166' },
+  { value: 'fantasy', label: 'Fantasy', icon: '🧙‍♂️', color: '#A5B4FC' },
+  { value: 'space', label: 'Space', icon: '🚀', color: '#818CF8' },
+  { value: 'underwater', label: 'Underwater', icon: '🐠', color: '#06D6A0' },
+  { value: 'dinosaurs', label: 'Dinosaurs', icon: '🦖', color: '#FF6B6B' },
+  { value: 'jungle', label: 'Jungle', icon: '🦁', color: '#06D6A0' },
+];
+
+// Reading level options
+const readingLevelOptions = [
+  { value: 'beginner', label: 'Beginner (Ages 3-5)' },
+  { value: 'intermediate', label: 'Intermediate (Ages 6-8)' },
+  { value: 'advanced', label: 'Advanced (Ages 9-12)' },
+];
 
 export default function CreateStory() {
   const router = useRouter();
@@ -78,19 +106,22 @@ export default function CreateStory() {
 
   if (!user || !user.primaryEmailAddress) {
     return (
-      <div className="text-red-500 text-sm">
-        <p>
-          You must have a verified email address to create a new story. Please{' '}
-          <Link href="/account">verify your email address</Link> to continue.
-        </p>
-      </div>
+      <FadeIn>
+        <div className="bg-destructive/10 text-destructive p-4 rounded-lg border border-destructive/20">
+          <p className="text-sm">
+            You must have a verified email address to create a new story. Please{' '}
+            <Link href="/account" className="text-primary underline">
+              verify your email address
+            </Link>{' '}
+            to continue.
+          </p>
+        </div>
+      </FadeIn>
     );
   }
 
   return (
-    <>
-      {/* Form fields */}
-
+    <FadeIn>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -99,211 +130,281 @@ export default function CreateStory() {
         }}
         className="space-y-8"
       >
-        <Card>
-          <CardHeader>
-            <CardTitle>Child Information</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Child's Name Field */}
-              <form.Field
-                name="childName"
-                validators={{
-                  onChange: z.string().min(1, { message: "Child's name is required" }),
-                }}
-              >
-                {(field) => (
-                  <div className="space-y-2">
-                    <Label htmlFor={field.name}>Child's Name</Label>
-                    <Input
-                      id={field.name}
-                      name={field.name}
-                      placeholder="Enter child's name"
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                    {field.state.meta.errors && field.state.meta.errors.length > 0 && (
-                      <p className="text-sm text-red-500">{String(field.state.meta.errors[0])}</p>
-                    )}
-                  </div>
-                )}
-              </form.Field>
-
-              {/* Child's Age Field */}
-              <form.Field
-                name="childAge"
-                validators={{
-                  onChange: z.string().min(1, { message: "Child's age is required" }),
-                }}
-              >
-                {(field) => (
-                  <div className="space-y-2">
-                    <Label htmlFor={field.name}>Child's Age</Label>
-                    <Input
-                      id={field.name}
-                      name={field.name}
-                      placeholder="Enter child's age"
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                    {field.state.meta.errors && field.state.meta.errors.length > 0 && (
-                      <p className="text-sm text-red-500">{String(field.state.meta.errors[0])}</p>
-                    )}
-                  </div>
-                )}
-              </form.Field>
-            </div>
-
-            {/* Reading Level Field */}
-            <form.Field name="readingLevel">
-              {(field) => (
-                <select
-                  id={field.name}
-                  name={field.name}
-                  value={field.state.value}
-                  onChange={(e) => field.setValue(e.target.value)}
-                  className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500"
+        <StaggerContainer staggerDelay={0.15}>
+          {/* Child Information Card */}
+          <EnhancedCard
+            className="form-card border-lavender/30 overflow-visible"
+            variant="gradient"
+            hoverEffect="none"
+          >
+            <CardHeader className="relative overflow-hidden">
+              <div className="absolute top-0 right-0 -mt-6 -mr-6 text-4xl opacity-10">👶</div>
+              <CardTitle className="text-2xl font-display bg-clip-text text-transparent bg-gradient-to-r from-primary to-lavender">
+                Child Information
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Child's Name Field */}
+                <form.Field
+                  name="childName"
+                  validators={{
+                    onChange: z.string().min(1, { message: "Child's name is required" }),
+                  }}
                 >
-                  <option value="beginner">Beginner (Ages 3-5)</option>
-                  <option value="intermediate">Intermediate (Ages 6-8)</option>
-                  <option value="advanced">Advanced (Ages 9-12)</option>
-                </select>
-              )}
-            </form.Field>
+                  {(field) => (
+                    <EnhancedFormField
+                      label="Child's Name"
+                      htmlFor={field.name}
+                      error={field.state.meta.errors?.[0]?.toString()}
+                      required
+                    >
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        placeholder="Enter child's name"
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        onBlur={field.handleBlur}
+                        className="input-enhanced"
+                      />
+                    </EnhancedFormField>
+                  )}
+                </form.Field>
 
-            {/* Child's Photo Field */}
-            <form.Field name="childPhoto">
-              {(field) => (
-                <div className="space-y-2">
-                  <Label htmlFor={field.name}>Child's Photo (Optional)</Label>
-                  <UploadButton<OurFileRouter, 'childImageUploader'>
-                    endpoint="childImageUploader"
-                    onClientUploadComplete={(res) => {
-                      // Do something with the response
-                      console.log('Files: ', res[0].ufsUrl);
-                      field.handleChange(res[0].ufsUrl);
-                    }}
-                    onUploadError={(error: Error) => {
-                      // Do something with the error.
-                      alert(`ERROR UPLOADING CHILD PHOTO! ${error.message}`);
-                    }}
-                  />
-                </div>
-              )}
-            </form.Field>
-          </CardContent>
-        </Card>
+                {/* Child's Age Field */}
+                <form.Field
+                  name="childAge"
+                  validators={{
+                    onChange: z.string().min(1, { message: "Child's age is required" }),
+                  }}
+                >
+                  {(field) => (
+                    <EnhancedFormField
+                      label="Child's Age"
+                      htmlFor={field.name}
+                      error={field.state.meta.errors?.[0]?.toString()}
+                      required
+                    >
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        placeholder="Enter child's age"
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        onBlur={field.handleBlur}
+                        className="input-enhanced"
+                      />
+                    </EnhancedFormField>
+                  )}
+                </form.Field>
+              </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Pet Information (Optional)</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Pet's Name Field */}
-              <form.Field name="petName">
+              {/* Reading Level Field */}
+              <form.Field name="readingLevel">
                 {(field) => (
-                  <div className="space-y-2">
-                    <Label htmlFor={field.name}>Pet's Name</Label>
-                    <Input
+                  <EnhancedFormField label="Reading Level" htmlFor={field.name} required>
+                    <EnhancedSelect
                       id={field.name}
                       name={field.name}
-                      placeholder="Enter pet's name"
                       value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
+                      onChange={(e) => field.setValue(e.target.value)}
+                      options={readingLevelOptions}
                     />
-                  </div>
+                  </EnhancedFormField>
                 )}
               </form.Field>
 
-              {/* Pet Type Field */}
-              <form.Field name="petType">
+              {/* Child's Photo Field */}
+              <form.Field name="childPhoto">
                 {(field) => (
-                  <div className="space-y-2">
-                    <Label htmlFor={field.name}>Pet Type</Label>
-                    <Input
-                      id={field.name}
-                      name={field.name}
-                      placeholder="Cat, Dog, etc."
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                    />
-                  </div>
+                  <EnhancedFormField label="Child's Photo" htmlFor={field.name} hint="Optional">
+                    <div className="mt-2">
+                      {field.state.value ? (
+                        <div className="relative w-full h-40 rounded-md overflow-hidden mb-2">
+                          <img
+                            src={field.state.value}
+                            // biome-ignore lint/a11y/noRedundantAlt: <explanation>
+                            alt="Child's photo"
+                            className="w-full h-full object-cover"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => field.handleChange('')}
+                            className="absolute top-2 right-2 bg-destructive text-destructive-foreground rounded-full p-1"
+                          >
+                            <CloseIcon />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="border-2 border-dashed border-input rounded-md p-6 flex flex-col items-center justify-center text-muted-foreground hover:border-primary/50 transition-colors">
+                          <UploadButton<OurFileRouter, 'childImageUploader'>
+                            endpoint="childImageUploader"
+                            onClientUploadComplete={(res) => {
+                              console.log('Files: ', res[0].ufsUrl);
+                              field.handleChange(res[0].ufsUrl);
+                            }}
+                            onUploadError={(error: Error) => {
+                              alert(`ERROR UPLOADING CHILD PHOTO! ${error.message}`);
+                            }}
+                          />
+                          <p className="text-xs mt-2">Upload a photo of your child (optional)</p>
+                        </div>
+                      )}
+                    </div>
+                  </EnhancedFormField>
                 )}
               </form.Field>
+            </CardContent>
+          </EnhancedCard>
+
+          {/* Pet Information Card */}
+          <EnhancedCard
+            className="form-card border-teal/30 overflow-visible"
+            variant="gradient"
+            hoverEffect="none"
+          >
+            <CardHeader className="relative overflow-hidden">
+              <div className="absolute top-0 right-0 -mt-6 -mr-6 text-4xl opacity-10">🐾</div>
+              <CardTitle className="text-2xl font-display bg-clip-text text-transparent bg-gradient-to-r from-teal to-primary">
+                Pet Information
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Pet's Name Field */}
+                <form.Field name="petName">
+                  {(field) => (
+                    <EnhancedFormField label="Pet's Name" htmlFor={field.name} hint="Optional">
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        placeholder="Enter pet's name"
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        className="input-enhanced"
+                      />
+                    </EnhancedFormField>
+                  )}
+                </form.Field>
+
+                {/* Pet Type Field */}
+                <form.Field name="petType">
+                  {(field) => (
+                    <EnhancedFormField label="Pet Type" htmlFor={field.name} hint="Optional">
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        placeholder="Cat, Dog, etc."
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        className="input-enhanced"
+                      />
+                    </EnhancedFormField>
+                  )}
+                </form.Field>
+              </div>
+
               {/* Pet's Photo Field */}
               <form.Field name="petPhoto">
                 {(field) => (
-                  <div className="space-y-2">
-                    <Label htmlFor={field.name}>Pet's Photo (Optional)</Label>
-                    <UploadButton<OurFileRouter, 'petImageUploader'>
-                      endpoint="petImageUploader"
-                      onClientUploadComplete={(res) => {
-                        // Do something with the response
-                        console.log('Files: ', res[0].ufsUrl);
-                        field.handleChange(res[0].ufsUrl);
-                      }}
-                      onUploadError={(error: Error) => {
-                        // Do something with the error.
-                        alert(`ERROR UPLOADING PET PHOTO! ${error.message}`);
-                      }}
-                    />
-                  </div>
+                  <EnhancedFormField label="Pet's Photo" htmlFor={field.name} hint="Optional">
+                    <div className="mt-2">
+                      {field.state.value ? (
+                        <div className="relative w-full h-40 rounded-md overflow-hidden mb-2">
+                          <img
+                            src={field.state.value}
+                            // biome-ignore lint/a11y/noRedundantAlt: <explanation>
+                            alt="Pet's photo"
+                            className="w-full h-full object-cover"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => field.handleChange('')}
+                            className="absolute top-2 right-2 bg-destructive text-destructive-foreground rounded-full p-1"
+                          >
+                            <CloseIcon />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="border-2 border-dashed border-input rounded-md p-6 flex flex-col items-center justify-center text-muted-foreground hover:border-primary/50 transition-colors">
+                          <UploadButton<OurFileRouter, 'petImageUploader'>
+                            endpoint="petImageUploader"
+                            onClientUploadComplete={(res) => {
+                              console.log('Files: ', res[0].ufsUrl);
+                              field.handleChange(res[0].ufsUrl);
+                            }}
+                            onUploadError={(error: Error) => {
+                              alert(`ERROR UPLOADING PET PHOTO! ${error.message}`);
+                            }}
+                          />
+                          <p className="text-xs mt-2">Upload a photo of your pet (optional)</p>
+                        </div>
+                      )}
+                    </div>
+                  </EnhancedFormField>
                 )}
               </form.Field>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </EnhancedCard>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Story Details</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {/* Story Theme Field */}
-            <form.Field name="storyTheme">
-              {(field) => (
-                <select
-                  id={field.name}
-                  name={field.name}
-                  value={field.state.value}
-                  onChange={(e) => field.setValue(e.target.value)}
-                  className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="adventure">Adventure</option>
-                  <option value="fantasy">Fantasy</option>
-                  <option value="space">Space</option>
-                  <option value="underwater">Underwater</option>
-                  <option value="dinosaurs">Dinosaurs</option>
-                  <option value="jungle">Jungle</option>
-                </select>
-              )}
-            </form.Field>
+          {/* Story Details Card */}
+          <EnhancedCard
+            className="form-card border-yellow/30 overflow-visible"
+            variant="gradient"
+            hoverEffect="none"
+          >
+            <CardHeader className="relative overflow-hidden">
+              <div className="absolute top-0 right-0 -mt-6 -mr-6 text-4xl opacity-10">📚</div>
+              <CardTitle className="text-2xl font-display bg-clip-text text-transparent bg-gradient-to-r from-yellow to-coral">
+                Story Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Story Theme Field */}
+              <form.Field name="storyTheme">
+                {(field) => (
+                  <EnhancedFormField label="Story Theme" htmlFor={field.name} required>
+                    <ThemeSelector
+                      value={field.state.value}
+                      onChange={(value) => field.setValue(value)}
+                      themes={themeOptions}
+                    />
+                  </EnhancedFormField>
+                )}
+              </form.Field>
 
-            {/* Additional Details Field */}
-            <form.Field name="additionalDetails">
-              {(field) => (
-                <div className="space-y-2">
-                  <Label htmlFor={field.name}>Additional Details (Optional)</Label>
-                  <Textarea
-                    id={field.name}
-                    name={field.name}
-                    placeholder="Any other details you'd like to include in the story"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    rows={4}
-                  />
-                </div>
-              )}
-            </form.Field>
-          </CardContent>
-        </Card>
+              {/* Additional Details Field */}
+              <form.Field name="additionalDetails">
+                {(field) => (
+                  <EnhancedFormField
+                    label="Additional Details"
+                    htmlFor={field.name}
+                    hint="Optional"
+                  >
+                    <Textarea
+                      id={field.name}
+                      name={field.name}
+                      placeholder="Any other details you'd like to include in the story"
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      rows={4}
+                      className="input-enhanced resize-none"
+                    />
+                  </EnhancedFormField>
+                )}
+              </form.Field>
+            </CardContent>
+          </EnhancedCard>
+        </StaggerContainer>
 
         {/* Form-level error display */}
         {form.state.errors && form.state.errors.length > 0 && (
-          <div className="text-red-500 text-sm">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-destructive/10 text-destructive p-4 rounded-lg border border-destructive/20"
+          >
             {(form.state.errors as unknown[]).map((error) => {
               if (!error || typeof error !== 'object') {
                 return null;
@@ -313,21 +414,37 @@ export default function CreateStory() {
               const errorId = typedError.path?.join('.') || crypto.randomUUID();
               const message = typedError.message || 'Unknown error';
 
-              return message ? <p key={errorId}>{message}</p> : null;
+              return message ? (
+                <p key={errorId} className="text-sm">
+                  {message}
+                </p>
+              ) : null;
             })}
-          </div>
+          </motion.div>
         )}
 
         <div className="flex justify-end">
-          <Button
+          <AnimatedButton
             type="submit"
             size="lg"
             disabled={isLoading || form.state.isSubmitting || !form.state.canSubmit}
+            className="rounded-full px-8 shadow-lg shadow-primary/20"
+            animationType="bounce"
           >
-            {isLoading ? 'Generating Story...' : 'Generate Story'}
-          </Button>
+            {isLoading ? (
+              <div className="flex items-center gap-2">
+                <LoadingSpinner />
+                Generating Story...
+              </div>
+            ) : (
+              <>
+                Generate Story
+                <span className="ml-2">✨</span>
+              </>
+            )}
+          </AnimatedButton>
         </div>
       </form>
-    </>
+    </FadeIn>
   );
 }

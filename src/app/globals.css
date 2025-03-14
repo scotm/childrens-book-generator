@@ -23,18 +23,18 @@
   --input: #e5e7eb;
   --ring: #6366f1;
   --radius: 0.5rem;
-  
+
   /* Playful color palette */
-  --yellow: #FFD166;
-  --teal: #06D6A0;
-  --coral: #FF6B6B;
-  --lavender: #A5B4FC;
-  
+  --yellow: #ffd166;
+  --teal: #06d6a0;
+  --coral: #ff6b6b;
+  --lavender: #a5b4fc;
+
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, var(--primary), var(--lavender));
   --gradient-accent: linear-gradient(135deg, var(--yellow), var(--coral));
   --gradient-card: linear-gradient(135deg, #ffffff, var(--lavender) 300%);
-  
+
   /* Animation timing */
   --animation-slow: 0.7s;
   --animation-medium: 0.4s;
@@ -67,18 +67,67 @@
     --border: #1f2937;
     --input: #1f2937;
     --ring: #818cf8;
-    
+
     /* Playful dark mode color palette */
-    --yellow: #FFE066;
-    --teal: #08E8B0;
-    --coral: #FF8080;
-    --lavender: #C7D2FE;
-    
+    --yellow: #ffe066;
+    --teal: #08e8b0;
+    --coral: #ff8080;
+    --lavender: #c7d2fe;
+
     /* Dark mode gradients */
-    --gradient-primary: linear-gradient(135deg, var(--primary), #6D28D9);
+    --gradient-primary: linear-gradient(135deg, var(--primary), #6d28d9);
     --gradient-accent: linear-gradient(135deg, var(--yellow), var(--coral));
-    --gradient-card: linear-gradient(135deg, #1A1A1A, #2D3748 300%);
+    --gradient-card: linear-gradient(135deg, #1a1a1a, #2d3748 300%);
   }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes float-slow {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
 }
 
 /* Typography specific classes */
@@ -162,4 +211,47 @@ body {
 .prose h3 {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+/* Form-specific styles */
+.form-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-card:hover {
+  box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.1), 0 8px 10px -6px rgba(99, 102, 241, 0.1);
+}
+
+.form-card:focus-within {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px -5px rgba(99, 102, 241, 0.15), 0 10px 15px -6px rgba(99, 102, 241, 0.1);
+}
+
+/* Enhanced form inputs */
+.input-enhanced {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-enhanced:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.input-enhanced:hover:not(:focus) {
+  border-color: var(--primary);
+}
+
+/* Theme selection styles */
+.theme-option {
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.theme-option:hover {
+  transform: translateY(-5px);
+}
+
+.theme-option-selected {
+  border-color: var(--primary);
+  background-color: rgba(99, 102, 241, 0.1);
 }

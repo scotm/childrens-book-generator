@@ -7,26 +7,26 @@ import Link from 'next/link';
 
 const steps = [
   {
-    id: "step-1",
+    id: 'step-1',
     number: 1,
-    title: "Create a Profile",
+    title: 'Create a Profile',
     description: "Add your child's details and preferences",
-    emoji: "👶"
+    emoji: '👶',
   },
   {
-    id: "step-2",
+    id: 'step-2',
     number: 2,
-    title: "Customize the Story",
-    description: "Choose a theme, add characters, and set the scene",
-    emoji: "✏️"
+    title: 'Customize the Story',
+    description: 'Choose a theme, add characters, and set the scene',
+    emoji: '✏️',
   },
   {
-    id: "step-3",
+    id: 'step-3',
     number: 3,
-    title: "Generate & Enjoy",
+    title: 'Generate & Enjoy',
     description: "We'll create a unique story featuring your child",
-    emoji: "📚"
-  }
+    emoji: '📚',
+  },
 ];
 
 export const HowItWorksSection = () => {
@@ -35,24 +35,24 @@ export const HowItWorksSection = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-display font-bold mb-4">
-              How It Works
-            </h2>
+            <h2 className="text-4xl font-display font-bold mb-4">How It Works</h2>
             <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
               Creating personalized stories is easy and fun with Story Sprout
             </p>
           </div>
         </ScrollReveal>
-        
+
         <div className="relative">
           {/* Connecting line */}
           <div className="absolute top-24 left-1/2 -translate-x-1/2 w-0.5 h-[calc(100%-120px)] bg-gradient-to-b from-primary via-teal to-coral hidden md:block" />
-          
+
           {steps.map((step, index) => (
             <ScrollReveal key={step.id}>
-              <div className={`flex flex-col md:flex-row items-center gap-8 mb-16 ${
-                index % 2 === 1 ? 'md:flex-row-reverse' : ''
-              }`}>
+              <div
+                className={`flex flex-col md:flex-row items-center gap-8 mb-16 ${
+                  index % 2 === 1 ? 'md:flex-row-reverse' : ''
+                }`}
+              >
                 <div className="w-full md:w-1/2 relative">
                   <motion.div
                     whileHover={{ scale: 1.03 }}
@@ -75,7 +75,7 @@ export const HowItWorksSection = () => {
             </ScrollReveal>
           ))}
         </div>
-        
+
         <ScrollReveal>
           <div className="text-center mt-12">
             <Link href="/create">

@@ -15,37 +15,32 @@ export const FadeIn = ({
 }) => {
   const variants: Variants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
-      transition: { 
+      transition: {
         duration,
-        delay 
-      }
-    }
+        delay,
+      },
+    },
   };
 
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={variants}
-      {...props}
-    >
+    <motion.div initial="hidden" animate="visible" variants={variants} {...props}>
       {children}
     </motion.div>
   );
 };
 
 // Slide in component
-export const SlideIn = ({ 
-  children, 
+export const SlideIn = ({
+  children,
   direction = 'up',
   delay = 0,
   duration = 0.5,
   distance = 50,
-  ...props 
-}: { 
-  children: React.ReactNode; 
+  ...props
+}: {
+  children: React.ReactNode;
   direction?: 'up' | 'down' | 'left' | 'right';
   delay?: number;
   duration?: number;
@@ -54,50 +49,50 @@ export const SlideIn = ({
 }) => {
   const getDirectionValues = () => {
     switch (direction) {
-      case 'up': return { hidden: { y: distance }, visible: { y: 0 } };
-      case 'down': return { hidden: { y: -distance }, visible: { y: 0 } };
-      case 'left': return { hidden: { x: distance }, visible: { x: 0 } };
-      case 'right': return { hidden: { x: -distance }, visible: { x: 0 } };
-      default: return { hidden: { y: distance }, visible: { y: 0 } };
+      case 'up':
+        return { hidden: { y: distance }, visible: { y: 0 } };
+      case 'down':
+        return { hidden: { y: -distance }, visible: { y: 0 } };
+      case 'left':
+        return { hidden: { x: distance }, visible: { x: 0 } };
+      case 'right':
+        return { hidden: { x: -distance }, visible: { x: 0 } };
+      default:
+        return { hidden: { y: distance }, visible: { y: 0 } };
     }
   };
 
   const directionValues = getDirectionValues();
-  
+
   const variants: Variants = {
-    hidden: { 
-      opacity: 0, 
-      ...directionValues.hidden 
+    hidden: {
+      opacity: 0,
+      ...directionValues.hidden,
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       ...directionValues.visible,
-      transition: { 
+      transition: {
         duration,
-        delay 
-      }
-    }
+        delay,
+      },
+    },
   };
 
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={variants}
-      {...props}
-    >
+    <motion.div initial="hidden" animate="visible" variants={variants} {...props}>
       {children}
     </motion.div>
   );
 };
 
 // Staggered children animation
-export const StaggerContainer = ({ 
-  children, 
+export const StaggerContainer = ({
+  children,
   delay = 0.1,
   staggerDelay = 0.1,
-  ...props 
-}: { 
+  ...props
+}: {
   children: React.ReactNode;
   delay?: number;
   staggerDelay?: number;
@@ -105,47 +100,45 @@ export const StaggerContainer = ({
 }) => {
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
-      transition: { 
+      transition: {
         delayChildren: delay,
-        staggerChildren: staggerDelay
-      }
-    }
+        staggerChildren: staggerDelay,
+      },
+    },
   };
 
   const childVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: '-50px' }}
       variants={containerVariants}
       {...props}
     >
-      {React.Children.map(children, child => (
-        <motion.div variants={childVariants}>
-          {child}
-        </motion.div>
+      {React.Children.map(children, (child) => (
+        <motion.div variants={childVariants}>{child}</motion.div>
       ))}
     </motion.div>
   );
 };
 
 // Scroll-triggered reveal
-export const ScrollReveal = ({ 
+export const ScrollReveal = ({
   children,
   threshold = 0.1,
-  ...props 
-}: { 
+  ...props
+}: {
   children: React.ReactNode;
   threshold?: number;
   [key: string]: unknown;
