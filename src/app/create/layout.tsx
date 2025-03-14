@@ -1,4 +1,6 @@
-import { Button } from '@/components/ui/button';
+'use client';
+
+import { BackToHomeButton } from '@/components/ui/BackToHomeButton';
 import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
 import { FadeIn, SlideIn } from '@/components/ui/enhanced/animated-elements';
 import Link from 'next/link';
@@ -21,13 +23,9 @@ export default function CreateLayout({ children }: { children: React.ReactNode }
       <div className="w-full max-w-3xl relative">
         <SlideIn direction="down" duration={0.7}>
           <div className="mb-8 flex items-center justify-between">
-            <Link href="/">
-              <AnimatedButton animationType="bounce" className="mb-4" variant="ghost">
-                ← Back to Home
-              </AnimatedButton>
-            </Link>
+            <BackToHomeButton />
             <FadeIn delay={0.3}>
-              <h1 className="text-3xl font-display font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal">
+              <h1 className="text-3xl font-display font-bold tracking-tight bg-clip-text bg-gradient-to-r from-primary to-teal">
                 Create a New Story
               </h1>
             </FadeIn>

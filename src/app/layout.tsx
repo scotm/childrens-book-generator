@@ -39,7 +39,7 @@ export default function RootLayout({
                 <div className="container mx-auto flex h-16 items-center justify-between px-4">
                   <Link
                     href="/"
-                    className="font-display font-bold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal transition-all duration-300 hover:scale-105"
+                    className="font-display font-bold text-2xl bg-clip-text  bg-gradient-to-r from-primary to-teal transition-all duration-300 hover:scale-105"
                   >
                     Story Sprout
                   </Link>
@@ -87,7 +87,7 @@ export default function RootLayout({
                     <div>
                       <Link
                         href="/"
-                        className="font-display font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal"
+                        className="font-display font-bold text-xl bg-clip-text bg-gradient-to-r from-primary to-teal"
                       >
                         Story Sprout
                       </Link>

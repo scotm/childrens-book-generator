@@ -3,28 +3,26 @@
 
 import { useUser } from '@clerk/nextjs';
 import { useForm } from '@tanstack/react-form';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { z } from 'zod';
 
-import type { OurFileRouter } from '@/app/api/uploadthing/core';
+import { ThemeSelector } from '@/components/create/theme-selector';
 import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
+import { FadeIn, StaggerContainer } from '@/components/ui/enhanced/animated-elements';
 import {
-  EnhancedCard,
   CardContent,
   CardHeader,
   CardTitle,
+  EnhancedCard,
 } from '@/components/ui/enhanced/enhanced-card';
 import { EnhancedFormField } from '@/components/ui/enhanced/enhanced-form-field';
 import { EnhancedSelect } from '@/components/ui/enhanced/enhanced-select';
-import { FadeIn, SlideIn, StaggerContainer } from '@/components/ui/enhanced/animated-elements';
+import { CloseIcon, LoadingSpinner } from '@/components/ui/icons';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { ThemeSelector } from '@/components/create/theme-selector';
-import { UploadButton } from '@uploadthing/react';
+import { UploadButton } from '@/lib/utils/uploadthing';
 import { motion } from 'framer-motion';
-import { CloseIcon, LoadingSpinner } from '@/components/ui/icons';
 
 // Form schema with validation rules
 const formSchema = z.object({
@@ -104,21 +102,21 @@ export default function CreateStory() {
     },
   });
 
-  if (!user || !user.primaryEmailAddress) {
-    return (
-      <FadeIn>
-        <div className="bg-destructive/10 text-destructive p-4 rounded-lg border border-destructive/20">
-          <p className="text-sm">
-            You must have a verified email address to create a new story. Please{' '}
-            <Link href="/account" className="text-primary underline">
-              verify your email address
-            </Link>{' '}
-            to continue.
-          </p>
-        </div>
-      </FadeIn>
-    );
-  }
+  // if (!user || !user.primaryEmailAddress) {
+  //   return (
+  //     <FadeIn>
+  //       <div className="bg-destructive/10 text-destructive p-4 rounded-lg border border-destructive/20">
+  //         <p className="text-sm">
+  //           You must have a verified email address to create a new story. Please{' '}
+  //           <Link href="/account" className="text-primary underline">
+  //             verify your email address
+  //           </Link>{' '}
+  //           to continue.
+  //         </p>
+  //       </div>
+  //     </FadeIn>
+  //   );
+  // }
 
   return (
     <FadeIn>
@@ -139,7 +137,7 @@ export default function CreateStory() {
           >
             <CardHeader className="relative overflow-hidden">
               <div className="absolute top-0 right-0 -mt-6 -mr-6 text-4xl opacity-10">👶</div>
-              <CardTitle className="text-2xl font-display bg-clip-text text-transparent bg-gradient-to-r from-primary to-lavender">
+              <CardTitle className="text-2xl font-display bg-clip-text bg-gradient-to-r from-primary to-lavender text-background">
                 Child Information
               </CardTitle>
             </CardHeader>
@@ -156,7 +154,7 @@ export default function CreateStory() {
                     <EnhancedFormField
                       label="Child's Name"
                       htmlFor={field.name}
-                      error={field.state.meta.errors?.[0]?.toString()}
+                      error={field.state.meta.errors}
                       required
                     >
                       <Input
@@ -183,7 +181,7 @@ export default function CreateStory() {
                     <EnhancedFormField
                       label="Child's Age"
                       htmlFor={field.name}
-                      error={field.state.meta.errors?.[0]?.toString()}
+                      error={field.state.meta.errors}
                       required
                     >
                       <Input
@@ -203,7 +201,12 @@ export default function CreateStory() {
               {/* Reading Level Field */}
               <form.Field name="readingLevel">
                 {(field) => (
-                  <EnhancedFormField label="Reading Level" htmlFor={field.name} required>
+                  <EnhancedFormField
+                    label="Reading Level"
+                    htmlFor={field.name}
+                    required
+                    error={field.state.meta.errors}
+                  >
                     <EnhancedSelect
                       id={field.name}
                       name={field.name}
@@ -218,7 +221,12 @@ export default function CreateStory() {
               {/* Child's Photo Field */}
               <form.Field name="childPhoto">
                 {(field) => (
-                  <EnhancedFormField label="Child's Photo" htmlFor={field.name} hint="Optional">
+                  <EnhancedFormField
+                    label="Child's Photo"
+                    htmlFor={field.name}
+                    hint="Optional"
+                    error={field.state.meta.errors}
+                  >
                     <div className="mt-2">
                       {field.state.value ? (
                         <div className="relative w-full h-40 rounded-md overflow-hidden mb-2">
@@ -238,7 +246,7 @@ export default function CreateStory() {
                         </div>
                       ) : (
                         <div className="border-2 border-dashed border-input rounded-md p-6 flex flex-col items-center justify-center text-muted-foreground hover:border-primary/50 transition-colors">
-                          <UploadButton<OurFileRouter, 'childImageUploader'>
+                          <UploadButton
                             endpoint="childImageUploader"
                             onClientUploadComplete={(res) => {
                               console.log('Files: ', res[0].ufsUrl);
@@ -266,7 +274,7 @@ export default function CreateStory() {
           >
             <CardHeader className="relative overflow-hidden">
               <div className="absolute top-0 right-0 -mt-6 -mr-6 text-4xl opacity-10">🐾</div>
-              <CardTitle className="text-2xl font-display bg-clip-text text-transparent bg-gradient-to-r from-teal to-primary">
+              <CardTitle className="text-2xl font-display bg-clip-text bg-gradient-to-r from-teal to-primary text-background">
                 Pet Information
               </CardTitle>
             </CardHeader>
@@ -275,7 +283,12 @@ export default function CreateStory() {
                 {/* Pet's Name Field */}
                 <form.Field name="petName">
                   {(field) => (
-                    <EnhancedFormField label="Pet's Name" htmlFor={field.name} hint="Optional">
+                    <EnhancedFormField
+                      label="Pet's Name"
+                      htmlFor={field.name}
+                      hint="Optional"
+                      error={field.state.meta.errors}
+                    >
                       <Input
                         id={field.name}
                         name={field.name}
@@ -291,7 +304,12 @@ export default function CreateStory() {
                 {/* Pet Type Field */}
                 <form.Field name="petType">
                   {(field) => (
-                    <EnhancedFormField label="Pet Type" htmlFor={field.name} hint="Optional">
+                    <EnhancedFormField
+                      label="Pet Type"
+                      htmlFor={field.name}
+                      hint="Optional"
+                      error={field.state.meta.errors}
+                    >
                       <Input
                         id={field.name}
                         name={field.name}
@@ -308,7 +326,12 @@ export default function CreateStory() {
               {/* Pet's Photo Field */}
               <form.Field name="petPhoto">
                 {(field) => (
-                  <EnhancedFormField label="Pet's Photo" htmlFor={field.name} hint="Optional">
+                  <EnhancedFormField
+                    label="Pet's Photo"
+                    htmlFor={field.name}
+                    hint="Optional"
+                    error={field.state.meta.errors}
+                  >
                     <div className="mt-2">
                       {field.state.value ? (
                         <div className="relative w-full h-40 rounded-md overflow-hidden mb-2">
@@ -328,7 +351,7 @@ export default function CreateStory() {
                         </div>
                       ) : (
                         <div className="border-2 border-dashed border-input rounded-md p-6 flex flex-col items-center justify-center text-muted-foreground hover:border-primary/50 transition-colors">
-                          <UploadButton<OurFileRouter, 'petImageUploader'>
+                          <UploadButton
                             endpoint="petImageUploader"
                             onClientUploadComplete={(res) => {
                               console.log('Files: ', res[0].ufsUrl);
@@ -356,7 +379,7 @@ export default function CreateStory() {
           >
             <CardHeader className="relative overflow-hidden">
               <div className="absolute top-0 right-0 -mt-6 -mr-6 text-4xl opacity-10">📚</div>
-              <CardTitle className="text-2xl font-display bg-clip-text text-transparent bg-gradient-to-r from-yellow to-coral">
+              <CardTitle className="text-2xl font-display bg-clip-text bg-gradient-to-r from-yellow to-coral text-background">
                 Story Details
               </CardTitle>
             </CardHeader>
@@ -364,7 +387,12 @@ export default function CreateStory() {
               {/* Story Theme Field */}
               <form.Field name="storyTheme">
                 {(field) => (
-                  <EnhancedFormField label="Story Theme" htmlFor={field.name} required>
+                  <EnhancedFormField
+                    label="Story Theme"
+                    htmlFor={field.name}
+                    required
+                    error={field.state.meta.errors}
+                  >
                     <ThemeSelector
                       value={field.state.value}
                       onChange={(value) => field.setValue(value)}
@@ -381,6 +409,7 @@ export default function CreateStory() {
                     label="Additional Details"
                     htmlFor={field.name}
                     hint="Optional"
+                    error={field.state.meta.errors}
                   >
                     <Textarea
                       id={field.name}
@@ -405,14 +434,12 @@ export default function CreateStory() {
             animate={{ opacity: 1, y: 0 }}
             className="bg-destructive/10 text-destructive p-4 rounded-lg border border-destructive/20"
           >
-            {(form.state.errors as unknown[]).map((error) => {
-              if (!error || typeof error !== 'object') {
-                return null;
-              }
+            {(form.state.errors).map((error) => {
+              if (!error) return null;
+              console.log('Error:', error);
 
-              const typedError = error as FormError;
-              const errorId = typedError.path?.join('.') || crypto.randomUUID();
-              const message = typedError.message || 'Unknown error';
+              const errorId = error.path?.join('.') || crypto.randomUUID();
+              const message = error.message.join(",") || 'Unknown error';
 
               return message ? (
                 <p key={errorId} className="text-sm">

@@ -1,5 +1,6 @@
 'use client';
 
+import { BackToHomeButton } from '@/components/ui/BackToHomeButton';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useStories } from '@/hooks/use-stories';
@@ -27,11 +28,7 @@ export default function Dashboard() {
       <div className="w-full max-w-5xl">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <Link href="/">
-              <Button variant="ghost" className="mb-4">
-                ← Back to Home
-              </Button>
-            </Link>
+            <BackToHomeButton />
             <h1 className="text-3xl font-bold tracking-tight">My Stories</h1>
             <p className="text-muted-foreground">
               Welcome back, {user?.firstName || 'Reader'}! Here are your created stories.

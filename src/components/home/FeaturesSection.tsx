@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { ScrollReveal, StaggerContainer } from '@/components/ui/enhanced/animated-elements';
 import {
   EnhancedCard,
@@ -51,22 +50,22 @@ export const FeaturesSection = () => {
           </div>
         </ScrollReveal>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
           {features.map((feature) => (
             <EnhancedCard
               key={feature.id}
               variant="gradient"
-              className="text-center h-full"
+              className="text-center h-full flex flex-col justify-between"
               hoverEffect="lift"
             >
-              <CardHeader>
+              <CardHeader className="flex-shrink-0">
                 <div className="mx-auto mb-4 bg-primary/10 p-3 rounded-full w-16 h-16 flex items-center justify-center">
-                  <span className="text-3xl">{feature.icon}</span>
+                  <span className="text-6xl">{feature.icon}</span>
                 </div>
                 <CardTitle className="text-xl">{feature.title}</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-foreground/70">{feature.description}</p>
+              <CardContent className="flex-grow flex items-center">
+                <p className="text-foreground/70 w-full">{feature.description}</p>
               </CardContent>
             </EnhancedCard>
           ))}

@@ -8,7 +8,7 @@ export const metadata = {
 export default function HelpFAQ() {
   return (
     <div className="container mx-auto px-4 py-12 max-w-4xl">
-      <h1 className="font-display text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal">
+      <h1 className="font-display text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text bg-gradient-to-r from-primary to-teal">
         Help & FAQ
       </h1>
 

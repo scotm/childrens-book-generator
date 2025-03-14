@@ -71,7 +71,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <motion.h1
-              className="text-5xl md:text-6xl font-display font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal"
+              className="text-5xl md:text-6xl font-display font-bold tracking-tight mb-6 bg-clip-text bg-gradient-to-r from-primary to-teal"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -156,29 +156,29 @@ export const HeroSection = () => {
                   x: [0, 5, 0],
                 }}
                 transition={{
-                  duration: 4,
+                  duration: 5,
                   repeat: Number.POSITIVE_INFINITY,
                   repeatType: 'reverse',
                 }}
                 className="absolute top-[-30px] right-[50px]"
               >
-                <div className="w-10 h-10 text-yellow text-3xl">✨</div>
+                <div className="w-10 h-10 text-yellow text-6xl">✨</div>
               </motion.div>
 
               <motion.div
                 animate={{
-                  y: [0, 10, 0],
-                  x: [0, -8, 0],
+                  y: [0, 6, 0],
+                  x: [0, -10, 0],
                 }}
                 transition={{
-                  duration: 3.5,
+                  duration: 2.5,
                   repeat: Number.POSITIVE_INFINITY,
                   repeatType: 'reverse',
                   delay: 0.5,
                 }}
                 className="absolute bottom-[40px] left-[40px]"
               >
-                <div className="w-12 h-12 text-coral text-3xl">🧚</div>
+                <div className="w-12 h-12 text-coral text-6xl">🧚</div>
               </motion.div>
             </div>
           </motion.div>
