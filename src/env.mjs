@@ -13,6 +13,7 @@ export const env = createEnv({
     OPENAI_API_KEY: z.string(),
     DATABASE_URL: z.string(),
     AUTH_NEEDED: z.coerce(z.boolean().optional().default(true)),
+    UPLOADTHING_TOKEN: z.string(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -35,5 +36,6 @@ export const env = createEnv({
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     DATABASE_URL: process.env.DATABASE_URL,
     AUTH_NEEDED: process.env.AUTH_NEEDED,
+    UPLOADTHING_TOKEN: process.env.UPLOADTHING_TOKEN,
   },
 });
