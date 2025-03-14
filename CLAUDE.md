@@ -2,27 +2,28 @@
 
 ## Build Commands
 
-- Development: `bun dev` or `npm run dev`
-- Production: `bun build` or `npm run build`
-- Start server: `bun start` or `npm run start`
-- Lint: `bun lint` or `npm run lint`
-- Biome format: `bun format` or `npm run format`
-- Biome check (lint + format): `bun check` or `npm run check`
+- Development: `bun dev`
+- Production: `bun build`
+- Start server: `bun start`
+- Lint: `bun lint`
+- Biome format: `bun format`
+- Biome check (lint + format): `bun check`
 
 ## Tech Stack
 
-- Next.js 15.2.1 (App Router)
+- Next.js 15.2.2 (App Router, with Turbopack in dev)
 - React 19
 - TypeScript (strict mode)
-- Tailwind CSS
+- Tailwind CSS 4
 - Clerk (authentication)
-- OpenAI
+- OpenAI and Anthropic (AI-SDK)
 - Drizzle ORM with PostgreSQL
 - Neon database adapter
 - Zod (validation)
 - Tanstack Form with Zod adapter
+- Tanstack Query
 - Biome (linting and formatting)
-- Bun as the package manager, not npm
+- Bun as the package manager
 
 ## Code Style Guidelines
 
