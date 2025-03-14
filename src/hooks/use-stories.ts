@@ -4,7 +4,7 @@ import type { storySchema } from '@/types/stories';
 import { z } from 'zod';
 
 // API response type as Zod schema
-export const apiErrorSchema = z.object({
+const apiErrorSchema = z.object({
   message: z.string(),
   code: z.string(),
   details: z.unknown().optional(),
@@ -18,10 +18,10 @@ export const createApiResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T) =
   });
 
 // Inferred type from the schema
-export type ApiResponse<T> = z.infer<ReturnType<typeof createApiResponseSchema<z.ZodType<T>>>>;
+type ApiResponse<T> = z.infer<ReturnType<typeof createApiResponseSchema<z.ZodType<T>>>>;
 
 // Story with chapters and content
-export interface StoryWithChapters extends Story {
+interface StoryWithChapters extends Story {
   chapters: Array<{
     id: number;
     story_id: number;
@@ -38,7 +38,7 @@ export interface StoryWithChapters extends Story {
 }
 
 // Type for story update data
-export interface UpdateStoryData {
+interface UpdateStoryData {
   title: string;
   thumbnail: string;
   readingLevel: 'beginner' | 'intermediate' | 'advanced';

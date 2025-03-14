@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "biome lint ./src",
     "format": "biome format --write ./src",
-    "check": "biome check --write ./src"
+    "check": "biome check --write ./src",
+    "knip": "knip"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.1.17",
@@ -21,7 +22,6 @@
     "@t3-oss/env-nextjs": "^0.12.0",
     "@tanstack/react-form": "^1.0.5",
     "@tanstack/react-query": "^5.67.3",
-    "@tanstack/zod-form-adapter": "^0.42.1",
     "ai": "^4.1.61",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -29,7 +29,6 @@
     "drizzle-orm": "^0.40.0",
     "lucide-react": "^0.479.0",
     "next": "15.2.2",
-    "openai": "^4.87.3",
     "postcss": "^8.5.3",
     "postgres": "^3.4.5",
     "react": "^19.0.0",
@@ -46,8 +45,8 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "drizzle-kit": "^0.30.5",
+    "knip": "^5.46.0",
     "tailwindcss": "^4.0.14",
-    "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   }
 }
