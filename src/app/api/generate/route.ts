@@ -14,7 +14,7 @@ const model = openai('gpt-4o-mini');
 export async function POST(req: Request) {
   try {
     // Auth check
-    if (env.AUTH_NEEDED) {
+    if (env.AUTH_NEEDED === 'true') {
       const { userId } = await auth();
       if (!userId) {
         throw new UnauthorizedError();

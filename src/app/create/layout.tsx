@@ -2,11 +2,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import type React from 'react';
 
-interface Props {
-  children: React.ReactNode;
-}
-
-export const layout = ({ children }: Props) => {
+export default function CreateLayout({ children }: { children: React.ReactNode }) {
   return (
     <main className="flex min-h-screen flex-col items-center p-6 md:p-24">
       <div className="w-full max-w-3xl">
@@ -22,4 +18,4 @@ export const layout = ({ children }: Props) => {
       </div>
     </main>
   );
-};
+}
