@@ -172,6 +172,7 @@ export default function StoryPreview() {
           <CardContent className="p-6 md:p-10">
             <div className="prose prose-lg max-w-none">
               {mockStory.content.map((item, index) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                 <div key={index} className="my-6">
                   {item.type === 'text' ? (
                     <p>{item.content}</p>

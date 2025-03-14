@@ -7,19 +7,23 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { z } from 'zod';
 
+import type { OurFileRouter } from '@/app/api/uploadthing/core';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { UploadButton } from '@uploadthing/react';
 
 // Form schema with validation rules
 const formSchema = z.object({
   childName: z.string().min(1, { message: "Child's name is required" }),
   childAge: z.string().min(1, { message: "Child's age is required" }),
   readingLevel: z.enum(['beginner', 'intermediate', 'advanced'] as const),
+  childPhoto: z.string().url(),
   petName: z.string(),
   petType: z.string(),
+  petPhoto: z.string().url(),
   storyTheme: z.enum([
     'adventure',
     'fantasy',
@@ -46,8 +50,10 @@ export default function CreateStory() {
       childName: '',
       childAge: '',
       readingLevel: 'beginner',
+      childPhoto: '',
       petName: '',
       petType: '',
+      petPhoto: '',
       storyTheme: 'adventure',
       additionalDetails: '',
     },
@@ -166,6 +172,27 @@ export default function CreateStory() {
                 </select>
               )}
             </form.Field>
+
+            {/* Child's Photo Field */}
+            <form.Field name="childPhoto">
+              {(field) => (
+                <div className="space-y-2">
+                  <Label htmlFor={field.name}>Child's Photo (Optional)</Label>
+                  <UploadButton<OurFileRouter, 'childImageUploader'>
+                    endpoint="childImageUploader"
+                    onClientUploadComplete={(res) => {
+                      // Do something with the response
+                      console.log('Files: ', res[0].ufsUrl);
+                      field.handleChange(res[0].ufsUrl);
+                    }}
+                    onUploadError={(error: Error) => {
+                      // Do something with the error.
+                      alert(`ERROR UPLOADING CHILD PHOTO! ${error.message}`);
+                    }}
+                  />
+                </div>
+              )}
+            </form.Field>
           </CardContent>
         </Card>
 
@@ -202,6 +229,26 @@ export default function CreateStory() {
                       placeholder="Cat, Dog, etc."
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
+                    />
+                  </div>
+                )}
+              </form.Field>
+              {/* Pet's Photo Field */}
+              <form.Field name="petPhoto">
+                {(field) => (
+                  <div className="space-y-2">
+                    <Label htmlFor={field.name}>Pet's Photo (Optional)</Label>
+                    <UploadButton<OurFileRouter, 'petImageUploader'>
+                      endpoint="petImageUploader"
+                      onClientUploadComplete={(res) => {
+                        // Do something with the response
+                        console.log('Files: ', res[0].ufsUrl);
+                        field.handleChange(res[0].ufsUrl);
+                      }}
+                      onUploadError={(error: Error) => {
+                        // Do something with the error.
+                        alert(`ERROR UPLOADING PET PHOTO! ${error.message}`);
+                      }}
                     />
                   </div>
                 )}

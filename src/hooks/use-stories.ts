@@ -107,10 +107,10 @@ export function useCreateStory() {
     onMutate: async (newStoryData) => {
       // Cancel any outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['stories'] });
-      
+
       // Snapshot the previous value
       const previousStories = queryClient.getQueryData<Story[]>(['stories']) || [];
-      
+
       // Create a temporary optimistic story
       const optimisticStory: Story = {
         id: Math.floor(Math.random() * -1000000), // Temporary negative ID
@@ -121,10 +121,10 @@ export function useCreateStory() {
         createdAt: new Date(),
         updatedAt: new Date(),
       };
-      
+
       // Optimistically update the stories list
-      queryClient.setQueryData<Story[]>(['stories'], old => [...(old || []), optimisticStory]);
-      
+      queryClient.setQueryData<Story[]>(['stories'], (old) => [...(old || []), optimisticStory]);
+
       return { previousStories };
     },
     onError: (err, newStory, context) => {
@@ -166,15 +166,15 @@ export function useUpdateStory() {
     onMutate: async ({ id, data }) => {
       // Convert id to number if needed (since our schema uses number IDs)
       const numericId = Number.parseInt(id, 10);
-      
+
       // Cancel any outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['story', id] });
       await queryClient.cancelQueries({ queryKey: ['stories'] });
-      
+
       // Snapshot the previous values
       const previousStory = queryClient.getQueryData<StoryWithChapters>(['story', id]);
       const previousStories = queryClient.getQueryData<Story[]>(['stories']);
-      
+
       // Update the single story in the cache
       if (previousStory) {
         const updatedStory = {
@@ -184,27 +184,27 @@ export function useUpdateStory() {
           readingLevel: data.readingLevel,
           updatedAt: new Date(),
         };
-        
+
         queryClient.setQueryData(['story', id], updatedStory);
       }
-      
+
       // Update the story in the stories list
       if (previousStories) {
-        const updatedStories = previousStories.map(story =>
+        const updatedStories = previousStories.map((story) =>
           story.id === numericId
             ? {
                 ...story,
                 title: data.title,
                 thumbnail: data.thumbnail,
                 readingLevel: data.readingLevel,
-                updatedAt: new Date()
+                updatedAt: new Date(),
               }
             : story
         );
-        
+
         queryClient.setQueryData<Story[]>(['stories'], updatedStories);
       }
-      
+
       return { previousStory, previousStories };
     },
     onError: (err, variables, context) => {
@@ -212,7 +212,7 @@ export function useUpdateStory() {
       if (context?.previousStory) {
         queryClient.setQueryData(['story', variables.id], context.previousStory);
       }
-      
+
       if (context?.previousStories) {
         queryClient.setQueryData<Story[]>(['stories'], context.previousStories);
       }
@@ -247,26 +247,26 @@ export function useDeleteStory() {
     onMutate: async (id) => {
       // Convert id to number if needed
       const numericId = Number.parseInt(id, 10);
-      
+
       // Cancel any outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['stories'] });
       await queryClient.cancelQueries({ queryKey: ['story', id] });
-      
+
       // Snapshot the previous values
       const previousStories = queryClient.getQueryData<Story[]>(['stories']);
       const previousStory = queryClient.getQueryData<StoryWithChapters>(['story', id]);
-      
+
       // Optimistically remove the story from the stories list
       if (previousStories) {
         queryClient.setQueryData<Story[]>(
           ['stories'],
-          previousStories.filter(story => story.id !== numericId)
+          previousStories.filter((story) => story.id !== numericId)
         );
       }
-      
+
       // Optimistically remove the single story query
       queryClient.removeQueries({ queryKey: ['story', id] });
-      
+
       return { previousStories, previousStory };
     },
     onError: (err, id, context) => {
@@ -274,7 +274,7 @@ export function useDeleteStory() {
       if (context?.previousStories) {
         queryClient.setQueryData<Story[]>(['stories'], context.previousStories);
       }
-      
+
       if (context?.previousStory) {
         queryClient.setQueryData(['story', id], context.previousStory);
       }
