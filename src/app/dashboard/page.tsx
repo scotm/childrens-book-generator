@@ -2,69 +2,25 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { Story } from '@/db/schema';
+import { useStories } from '@/hooks/use-stories';
 import { useUser } from '@clerk/nextjs';
-import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-
-// Mock data - this would come from your database in a real application
-const mockStories: Story[] = [
-  {
-    id: 1,
-    user_id: 'user_1',
-    title: "Emily's Magical Adventure",
-    createdAt: new Date('2025-03-10'),
-    updatedAt: new Date('2025-03-10'),
-    thumbnail: '/story-thumbnail-1.jpg',
-    readingLevel: 'beginner',
-  },
-  {
-    id: 2,
-    user_id: 'user_1',
-    title: 'Max and Rex the Dinosaur',
-    createdAt: new Date('2025-03-08'),
-    updatedAt: new Date('2025-03-08'),
-    thumbnail: '/story-thumbnail-2.jpg',
-    readingLevel: 'intermediate',
-  },
-  {
-    id: 3,
-    user_id: 'user_1',
-    title: "Sophie's Journey to Space",
-    createdAt: new Date('2025-03-05'),
-    updatedAt: new Date('2025-03-05'),
-    thumbnail: '/story-thumbnail-3.jpg',
-    readingLevel: 'advanced',
-  },
-];
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Dashboard() {
-  const { user } = useUser();
-  const [stories, setStories] = useState<typeof mockStories>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { user, isLoaded: isUserLoaded } = useUser();
+  const router = useRouter();
 
+  // Fetch stories using Tanstack Query
+  const { data: stories = [], isLoading, isError } = useStories();
+
+  // Redirect to login if not authenticated
   useEffect(() => {
-    // Simulate loading stories from an API
-    const loadStories = async () => {
-      try {
-        // In a real app, this would be an API call like:
-        // const response = await fetch('/api/stories');
-        // const data = await response.json();
-
-        // Using mock data for now
-        setTimeout(() => {
-          setStories(mockStories);
-          setIsLoading(false);
-        }, 1000);
-      } catch (error) {
-        console.error('Error loading stories:', error);
-        setIsLoading(false);
-      }
-    };
-
-    loadStories();
-  }, []);
+    if (isUserLoaded && !user) {
+      router.push('/');
+    }
+  }, [isUserLoaded, user, router]);
 
   return (
     <main className="flex min-h-screen flex-col items-center p-6 md:p-24">
@@ -86,10 +42,20 @@ export default function Dashboard() {
           </Link>
         </div>
 
-        {isLoading ? (
+        {isLoading || !isUserLoaded ? (
           <div className="flex justify-center my-12">
             <p>Loading your stories...</p>
           </div>
+        ) : isError ? (
+          <Card className="text-center my-12 p-6">
+            <CardHeader>
+              <CardTitle>Error loading stories</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="mb-4">There was a problem loading your stories. Please try again.</p>
+              <Button onClick={() => window.location.reload()}>Retry</Button>
+            </CardContent>
+          </Card>
         ) : stories.length === 0 ? (
           <Card className="text-center my-12 p-6">
             <CardHeader>
@@ -119,7 +85,8 @@ export default function Dashboard() {
                   <CardContent>
                     <div className="flex items-center justify-between text-sm text-muted-foreground">
                       <span>
-                        Created {story.createdAt ? story.createdAt.toLocaleDateString() : ''}
+                        Created{' '}
+                        {story.createdAt ? new Date(story.createdAt).toLocaleDateString() : ''}
                       </span>
                       <span className="capitalize">{story.readingLevel}</span>
                     </div>
