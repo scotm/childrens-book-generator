@@ -4,32 +4,41 @@ Story Sprout is a personalized children's book generator that creates custom sto
 
 ## Features
 
-- **User Authentication**: Secure login and account management
+- **User Authentication**: Secure login and account management via Clerk
 - **Personalized Stories**: Create custom stories featuring your child's name, age, and personal details
 - **Pet Integration**: Include your child's pets in the stories
 - **Reading Level Selection**: Choose from beginner (ages 3-5), intermediate (ages 6-8), or advanced (ages 9-12)
 - **Story Themes**: Select from various themes like adventure, fantasy, space, and more
 - **Story Library**: Save and manage your generated stories
 - **Illustration Suggestions**: Provides guidance for where illustrations should be placed
+- **Image Upload**: Ability to upload images to include in your stories
+- **AI-Powered Story Generation**: Leveraging OpenAI and Anthropic for creative and engaging content
 
 ## Technology Stack
 
-- **Frontend**: Next.js, React, Tailwind CSS
+- **Framework**: Next.js 15.2.2 (App Router, Turbopack in dev)
+- **Frontend**: React 19, TypeScript (strict mode), Tailwind CSS 4
 - **Backend**: Next.js API Routes
 - **Authentication**: Clerk
-- **AI Integration**: OpenAI API for story generation
-- **Database**: PostgreSQL with Drizzle ORM
+- **AI Integration**: OpenAI API and Anthropic (AI-SDK) for story generation
+- **Database**: PostgreSQL with Drizzle ORM, Neon database adapter
+- **Form Handling**: Tanstack Form with Zod adapter, Tanstack Query
 - **Validation**: Zod
-- **Styling**: Tailwind CSS with shadcn/ui components
+- **File Uploads**: UploadThing integration
+- **Linting/Formatting**: Biome
+- **Package Manager**: Bun
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js (v18 or newer)
-- Bun (optional but recommended)
+- Bun
 - Clerk account for authentication
 - OpenAI API key for story generation
+- Anthropic API key
+- PostgreSQL database (Neon recommended)
+- UploadThing account for file uploads
 
 ### Installation
 
@@ -51,14 +60,12 @@ Story Sprout is a personalized children's book generator that creates custom sto
 3. Set up environment variables:
 
    - Copy `.env.example` to `.env.local`
-   - Add your Clerk, OpenAI and Database URL keys and secrets
+   - Add your Clerk, OpenAI, Anthropic, UploadThing, and Database URL keys and secrets
 
 4. Run the development server:
 
    ```bash
    bun dev
-   # or
-   npm run dev
    ```
 
 5. Open [http://localhost:3000](http://localhost:3000) to see the application
