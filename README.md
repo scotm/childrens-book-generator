@@ -1,6 +1,6 @@
-# Story Sprout - Children's Book Generator
+# Tales Together - Children's Book Generator
 
-Story Sprout is a personalized children's book generator that creates custom stories featuring your child, friends and pets. This application allows you to create engaging stories based on your child's name, age, reading level, and other personal details.
+Tales Together is a personalized children's book generator that creates custom stories featuring your child, friends and pets. This application allows you to create engaging stories based on your child's name, age, reading level, and other personal details.
 
 ## Features
 

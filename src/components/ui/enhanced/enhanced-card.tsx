@@ -11,12 +11,14 @@ import { cn } from '@/lib/utils';
 import type React from 'react';
 
 export interface EnhancedCardProps extends React.ComponentProps<typeof Card> {
+  id: string;
   hoverEffect?: 'lift' | 'glow' | 'none';
   variant?: 'default' | 'gradient' | 'outlined';
   animateEntry?: boolean;
 }
 
 export const EnhancedCard = ({
+  id,
   className,
   hoverEffect = 'lift',
   variant = 'default',
@@ -60,6 +62,7 @@ export const EnhancedCard = ({
 
   return (
     <motion.div
+      id={id}
       initial={animateEntry ? 'hidden' : 'visible'}
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}

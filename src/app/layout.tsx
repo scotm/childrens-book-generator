@@ -20,7 +20,7 @@ const quicksand = Quicksand({
 });
 
 export const metadata: Metadata = {
-  title: "Story Sprout - Personalized Children's Books",
+  title: "Tales Together - Personalized Children's Books",
   description: 'Create custom stories for your children featuring their names, pictures, and pets',
 };
 
@@ -41,7 +41,7 @@ export default function RootLayout({
                     href="/"
                     className="font-display font-bold text-2xl bg-clip-text  bg-gradient-to-r from-primary to-teal transition-all duration-300 hover:scale-105"
                   >
-                    Story Sprout
+                    Tales Together
                   </Link>
                   <nav className="flex items-center gap-6">
                     <SignedIn>
@@ -89,7 +89,7 @@ export default function RootLayout({
                         href="/"
                         className="font-display font-bold text-xl bg-clip-text bg-gradient-to-r from-primary to-teal"
                       >
-                        Story Sprout
+                        Tales Together
                       </Link>
                     </div>
                     <div className="flex gap-6">
@@ -116,7 +116,7 @@ export default function RootLayout({
                       </Link>
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      <p>© 2025 Story Sprout. All rights reserved.</p>
+                      <p>© 2025 Tales Together. All rights reserved.</p>
                     </div>
                   </div>
                 </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 
 export const metadata = {
-  title: 'Terms of Service - Story Sprout',
-  description: 'Terms and conditions for using the Story Sprout platform',
+  title: 'Terms of Service - Tales Together',
+  description: 'Terms and conditions for using the Tales Together platform',
 };
 
 export default function TermsOfService() {
@@ -17,8 +17,8 @@ export default function TermsOfService() {
 
         <h2 className="text-2xl font-display font-semibold mt-8 mb-4">1. Agreement to Terms</h2>
         <p>
-          Welcome to Story Sprout. These Terms of Service ("Terms") govern your access to and use of
-          the Story Sprout website, mobile applications, and services (collectively, the
+          Welcome to Tales Together. These Terms of Service ("Terms") govern your access to and use
+          of the Tales Together website, mobile applications, and services (collectively, the
           "Services"). By accessing or using our Services, you agree to be bound by these Terms. If
           you do not agree to these Terms, you may not access or use the Services.
         </p>
@@ -103,7 +103,7 @@ export default function TermsOfService() {
         <p>
           The Services and their entire contents, features, and functionality (including but not
           limited to all information, software, text, displays, images, video, and audio, and the
-          design, selection, and arrangement thereof) are owned by Story Sprout, its licensors, or
+          design, selection, and arrangement thereof) are owned by Tales Together, its licensors, or
           other providers of such material and are protected by copyright, trademark, patent, trade
           secret, and other intellectual property or proprietary rights laws.
         </p>
@@ -145,7 +145,7 @@ export default function TermsOfService() {
           11. Limitation of Liability
         </h2>
         <p>
-          TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL STORY SPROUT BE
+          TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL Tales Together BE
           LIABLE FOR ANY INDIRECT, PUNITIVE, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR EXEMPLARY
           DAMAGES, INCLUDING WITHOUT LIMITATION DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR
           OTHER INTANGIBLE LOSSES, ARISING OUT OF OR RELATING TO THE USE OF, OR INABILITY TO USE,
@@ -155,7 +155,7 @@ export default function TermsOfService() {
         <h2 className="text-2xl font-display font-semibold mt-8 mb-4">12. Governing Law</h2>
         <p>
           These Terms and your access to and use of the Services shall be governed by and construed
-          in accordance with the laws of the jurisdiction in which Story Sprout is established,
+          in accordance with the laws of the jurisdiction in which Tales Together is established,
           without regard to its conflict of law provisions.
         </p>
 
@@ -163,15 +163,15 @@ export default function TermsOfService() {
         <p>
           Any dispute arising from these Terms or your use of the Services shall be resolved through
           binding arbitration in accordance with the rules of the American Arbitration Association.
-          The arbitration shall be conducted in the jurisdiction in which Story Sprout is
+          The arbitration shall be conducted in the jurisdiction in which Tales Together is
           established.
         </p>
 
         <h2 className="text-2xl font-display font-semibold mt-8 mb-4">14. Entire Agreement</h2>
         <p>
-          These Terms constitute the entire agreement between you and Story Sprout regarding the use
-          of the Services, superseding any prior agreements between you and Story Sprout relating to
-          your use of the Services.
+          These Terms constitute the entire agreement between you and Tales Together regarding the
+          use of the Services, superseding any prior agreements between you and Tales Together
+          relating to your use of the Services.
         </p>
 
         <h2 className="text-2xl font-display font-semibold mt-8 mb-4">15. Contact Information</h2>
@@ -179,7 +179,7 @@ export default function TermsOfService() {
         <p className="mb-6">
           Email: legal@storysprout.com
           <br />
-          Address: Story Sprout, 123 Imagination Lane, Bookville, BK 12345
+          Address: Tales Together, 123 Imagination Lane, Bookville, BK 12345
         </p>
       </div>
     </div>

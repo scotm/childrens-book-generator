@@ -1,8 +1,8 @@
 import React from 'react';
 
 export const metadata = {
-  title: 'Help & FAQ - Story Sprout',
-  description: 'Frequently asked questions and help resources for Story Sprout users',
+  title: 'Help & FAQ - Tales Together',
+  description: 'Frequently asked questions and help resources for Tales Together users',
 };
 
 export default function HelpFAQ() {
@@ -14,8 +14,8 @@ export default function HelpFAQ() {
 
       <div className="prose prose-lg max-w-none">
         <p className="text-lg mb-8">
-          Find answers to commonly asked questions about Story Sprout and learn how to make the most
-          of our personalized children's book platform.
+          Find answers to commonly asked questions about Tales Together and learn how to make the
+          most of our personalized children's book platform.
         </p>
 
         <div className="space-y-8">
@@ -29,7 +29,7 @@ export default function HelpFAQ() {
                 </h3>
                 <p>Creating your first personalized story is easy:</p>
                 <ol className="list-decimal pl-6 mt-2">
-                  <li>Sign up for a Story Sprout account</li>
+                  <li>Sign up for a Tales Together account</li>
                   <li>Click on "Create Story" in the navigation menu</li>
                   <li>Enter your child's name and other personalization details</li>
                   <li>Choose a story theme or template</li>
@@ -45,9 +45,9 @@ export default function HelpFAQ() {
 
               <div className="bg-lavender/5 p-6 rounded-lg border">
                 <h3 className="text-xl font-display font-semibold mb-2">
-                  What devices can I use Story Sprout on?
+                  What devices can I use Tales Together on?
                 </h3>
-                <p>Story Sprout works on any device with a modern web browser, including:</p>
+                <p>Tales Together works on any device with a modern web browser, including:</p>
                 <ul className="list-disc pl-6 mt-2">
                   <li>Desktop computers (Windows, Mac, Linux)</li>
                   <li>Laptops</li>
@@ -89,7 +89,7 @@ export default function HelpFAQ() {
                   What story themes are available?
                 </h3>
                 <p>
-                  Story Sprout offers a variety of themes for different ages and interests,
+                  Tales Together offers a variety of themes for different ages and interests,
                   including:
                 </p>
                 <ul className="list-disc pl-6 mt-2">
@@ -130,7 +130,7 @@ export default function HelpFAQ() {
                 <h3 className="text-xl font-display font-semibold mb-2">
                   How much can I customize my story?
                 </h3>
-                <p>Story Sprout offers several levels of customization:</p>
+                <p>Tales Together offers several levels of customization:</p>
                 <ul className="list-disc pl-6 mt-2">
                   <li>Character names and appearances</li>
                   <li>Story settings and locations</li>
@@ -152,9 +152,9 @@ export default function HelpFAQ() {
             <div className="space-y-6">
               <div className="bg-lavender/5 p-6 rounded-lg border">
                 <h3 className="text-xl font-display font-semibold mb-2">
-                  Is Story Sprout free to use?
+                  Is Tales Together free to use?
                 </h3>
-                <p>Story Sprout offers both free and premium options:</p>
+                <p>Tales Together offers both free and premium options:</p>
                 <ul className="list-disc pl-6 mt-2">
                   <li>
                     <strong>Free Account:</strong> Create and view digital stories with basic
@@ -180,7 +180,7 @@ export default function HelpFAQ() {
                 </h3>
                 <p>To manage your subscription:</p>
                 <ol className="list-decimal pl-6 mt-2">
-                  <li>Log in to your Story Sprout account</li>
+                  <li>Log in to your Tales Together account</li>
                   <li>Go to your Account Settings</li>
                   <li>Select the "Subscription" tab</li>
                   <li>Choose "Upgrade," "Downgrade," or "Cancel" as needed</li>

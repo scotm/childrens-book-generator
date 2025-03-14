@@ -1,8 +1,8 @@
 import React from 'react';
 
 export const metadata = {
-  title: 'Privacy Policy - Story Sprout',
-  description: 'Learn how Story Sprout protects your privacy and handles your data',
+  title: 'Privacy Policy - Tales Together',
+  description: 'Learn how Tales Together protects your privacy and handles your data',
 };
 
 export default function PrivacyPolicy() {
@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
 
         <h2 className="text-2xl font-display font-semibold mt-8 mb-4">1. Introduction</h2>
         <p>
-          Welcome to Story Sprout ("we," "our," or "us"). We are committed to protecting your
+          Welcome to Tales Together ("we," "our," or "us"). We are committed to protecting your
           privacy and the personal information that you share with us. This Privacy Policy explains
           how we collect, use, disclose, and safeguard your information when you use our website and
           services.
@@ -171,7 +171,7 @@ export default function PrivacyPolicy() {
         <p className="mb-6">
           Email: privacy@storysprout.com
           <br />
-          Address: Story Sprout, 123 Imagination Lane, Bookville, BK 12345
+          Address: Tales Together, 123 Imagination Lane, Bookville, BK 12345
         </p>
       </div>
     </div>
