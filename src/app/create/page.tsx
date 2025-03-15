@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { z } from 'zod';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { generateStory, type StoryFormData } from '../actions';
 
 import { CSSButton } from '@/components/ui/animation/css-button';
 import { CSSFadeIn } from '@/components/ui/animation/css-animation';
@@ -93,10 +95,30 @@ export default function CreateStory() {
       setIsLoading(true);
 
       try {
-        // TODO: Implement API call to generate story
-        console.log('Form submitted with values:', value);
-        // For now, we'll just redirect to a mock result
-        router.push('/story/preview');
+        // Cast the form values to the correct types
+        const formData: StoryFormData = {
+          childName: value.childName,
+          childAge: value.childAge,
+          readingLevel: value.readingLevel as "beginner" | "intermediate" | "advanced",
+          childPhoto: value.childPhoto || undefined,
+          petName: value.petName || undefined,
+          petType: value.petType || undefined,
+          petPhoto: value.petPhoto || undefined,
+          storyTheme: value.storyTheme as "adventure" | "fantasy" | "space" | "underwater" | "dinosaurs" | "jungle",
+          additionalDetails: value.additionalDetails || undefined,
+        };
+        
+        // Use the server action to generate the story
+        const result = await generateStory(formData);
+        
+        if (result.success) {
+          // Redirect to the story page
+          router.push(`/story/${result.storyId}`);
+        } else {
+          // Handle error
+          console.error('Error generating story:', result.message);
+          alert(`Failed to generate story: ${result.message}`);
+        }
       } catch (error) {
         console.error('Error generating story:', error);
       } finally {
@@ -217,16 +239,18 @@ export default function CreateStory() {
                     <div className="mt-2">
                       {field.state.value ? (
                         <div className="relative w-full h-40 rounded-md overflow-hidden mb-2">
-                          <img
+                          <Image
                             src={field.state.value}
-                            // biome-ignore lint/a11y/noRedundantAlt: <explanation>
                             alt="Child's photo"
-                            className="w-full h-full object-cover"
+                            fill
+                            sizes="(max-width: 768px) 100vw, 400px"
+                            className="object-cover"
+                            priority={false}
                           />
                           <button
                             type="button"
                             onClick={() => field.handleChange('')}
-                            className="absolute top-2 right-2 bg-destructive text-destructive-foreground rounded-full p-1"
+                            className="absolute top-2 right-2 bg-destructive text-destructive-foreground rounded-full p-1 z-10"
                           >
                             <CloseIcon />
                           </button>
@@ -322,16 +346,18 @@ export default function CreateStory() {
                     <div className="mt-2">
                       {field.state.value ? (
                         <div className="relative w-full h-40 rounded-md overflow-hidden mb-2">
-                          <img
+                          <Image
                             src={field.state.value}
-                            // biome-ignore lint/a11y/noRedundantAlt: <explanation>
                             alt="Pet's photo"
-                            className="w-full h-full object-cover"
+                            fill
+                            sizes="(max-width: 768px) 100vw, 400px"
+                            className="object-cover"
+                            priority={false}
                           />
                           <button
                             type="button"
                             onClick={() => field.handleChange('')}
-                            className="absolute top-2 right-2 bg-destructive text-destructive-foreground rounded-full p-1"
+                            className="absolute top-2 right-2 bg-destructive text-destructive-foreground rounded-full p-1 z-10"
                           >
                             <CloseIcon />
                           </button>
