@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import {
   Card,
   CardContent,
@@ -13,7 +12,6 @@ import type React from 'react';
 export interface EnhancedCardProps extends React.ComponentProps<typeof Card> {
   hoverEffect?: 'lift' | 'glow' | 'none';
   variant?: 'default' | 'gradient' | 'outlined';
-  animateEntry?: boolean;
 }
 
 const variantClasses: Map<NonNullable<EnhancedCardProps['variant']>, string> = new Map([
@@ -23,8 +21,8 @@ const variantClasses: Map<NonNullable<EnhancedCardProps['variant']>, string> = n
 ]);
 
 const hoverClasses: Map<NonNullable<EnhancedCardProps['hoverEffect']>, string> = new Map([
-  ['lift', 'transition-transform duration-300 hover:-translate-y-2'],
-  ['glow', 'transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/20'],
+  ['lift', 'card-hover-lift'],
+  ['glow', 'card-hover-glow'],
   ['none', ''],
 ]);
 
@@ -32,41 +30,21 @@ export const EnhancedCard = ({
   className,
   hoverEffect = 'lift',
   variant = 'default',
-  animateEntry = true,
   children,
   ...props
 }: EnhancedCardProps) => {
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: 'easeOut',
-      },
-    },
-  };
-
   return (
-    <motion.div
-      initial={animateEntry ? 'hidden' : 'visible'}
-      whileInView="visible"
-      viewport={{ once: true, margin: '-100px' }}
-      variants={cardVariants}
+    <Card
+      className={cn(
+        'rounded-xl overflow-hidden',
+        variantClasses.get(variant) ?? '',
+        hoverClasses.get(hoverEffect) ?? '',
+        className,
+      )}
+      {...props}
     >
-      <Card
-        className={cn(
-          'rounded-xl overflow-hidden',
-          variantClasses.get(variant) ?? '',
-          hoverClasses.get(hoverEffect) ?? '',
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </Card>
-    </motion.div>
+      {children}
+    </Card>
   );
 };
 

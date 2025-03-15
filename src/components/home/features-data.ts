@@ -21,6 +21,6 @@ export const features = [
     id: 'illustrations',
     title: 'Illustrated Joy',
     description: 'Vibrant illustrations bring the stories to life',
-    icon: '��',
+    icon: '🎨',
   },
 ] as const;

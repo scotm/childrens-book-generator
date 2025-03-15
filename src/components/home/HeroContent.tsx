@@ -1,6 +1,3 @@
-import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs';
-import Link from 'next/link';
-import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
 import { HeroButtons } from './HeroButtons';
 
 export function HeroContent() {
@@ -15,7 +12,6 @@ export function HeroContent() {
         Create personalized stories featuring your child as the hero, with their pets, friends, and
         favorite adventures. Bring their imagination to life!
       </p>
-
       <HeroButtons />
     </div>
   );

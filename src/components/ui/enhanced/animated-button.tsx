@@ -39,7 +39,7 @@ export const AnimatedButton = ({
         className={cn(
           'font-medium transition-all duration-200',
           animationType === 'bounce' && 'active:translate-y-1',
-          className
+          className,
         )}
         {...props}
       >

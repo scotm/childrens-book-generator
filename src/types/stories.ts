@@ -19,7 +19,7 @@ export const storyContentSchema = z.array(
     type: z.enum(['text', 'image']),
     content: z.string().optional(), // Text content might be optional
     alt: z.string().optional(), // Image alt text
-  })
+  }),
 );
 
 export const storyChapterSchema = z.object({

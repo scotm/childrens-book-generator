@@ -1,15 +1,13 @@
-'use client';
-
 import Link from 'next/link';
-import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
+import { CSSButton } from '@/components/ui/animation/css-button';
 
 export function StartCreatingButton() {
   return (
     <div className="text-center mt-12">
       <Link href="/create">
-        <AnimatedButton size="lg" className="rounded-full px-8">
+        <CSSButton size="lg" className="rounded-full px-8" animationType="bounce">
           Start Creating Now
-        </AnimatedButton>
+        </CSSButton>
       </Link>
     </div>
   );

@@ -34,7 +34,7 @@ export const ChevronDown = React.forwardRef<SVGSVGElement, ChevronDownProps>(
         <path d="m6 9 6 6 6-6" />
       </svg>
     );
-  }
+  },
 );
 
 ChevronDown.displayName = 'ChevronDown';

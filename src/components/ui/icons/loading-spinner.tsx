@@ -45,7 +45,7 @@ export const LoadingSpinner = React.forwardRef<SVGSVGElement, LoadingSpinnerProp
         />
       </svg>
     );
-  }
+  },
 );
 
 LoadingSpinner.displayName = 'LoadingSpinner';

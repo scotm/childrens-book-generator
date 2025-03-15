@@ -163,6 +163,48 @@
   box-shadow: 0 0 20px 5px rgba(99, 102, 241, 0.2);
 }
 
+/* CSS Button animations */
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+.hover\:scale-102:hover {
+  transform: scale(1.02);
+}
+
+.active\:scale-95:active {
+  transform: scale(0.95);
+}
+
+.active\:translate-y-1:active {
+  transform: translateY(0.25rem);
+}
+
+.hover\:shadow-glow:hover {
+  box-shadow: 0 0 15px 5px rgba(99, 102, 241, 0.5);
+}
+
+/* CSS Button animations */
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+.hover\:scale-102:hover {
+  transform: scale(1.02);
+}
+
+.active\:scale-95:active {
+  transform: scale(0.95);
+}
+
+.active\:translate-y-1:active {
+  transform: translateY(0.25rem);
+}
+
+.hover\:shadow-glow:hover {
+  box-shadow: 0 0 15px 5px rgba(99, 102, 241, 0.5);
+}
+
 /* Gradient text */
 .text-gradient {
   background-clip: text;
@@ -257,37 +299,197 @@ body {
 }
 
 .hero-gradient {
-  background: linear-gradient(to bottom right, rgba(165, 180, 252, 0.3), rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+  background: linear-gradient(
+    to bottom right,
+    rgba(165, 180, 252, 0.3),
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 1)
+  );
   animation: gradientShift 20s ease infinite alternate;
 }
 
 @keyframes gradientShift {
   0% {
-    background: linear-gradient(to bottom right, rgba(165, 180, 252, 0.3), rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+    background: linear-gradient(
+      to bottom right,
+      rgba(165, 180, 252, 0.3),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 1)
+    );
   }
   50% {
-    background: linear-gradient(to bottom right, rgba(165, 180, 252, 0.1), rgba(255, 209, 102, 0.1), rgba(255, 255, 255, 1));
+    background: linear-gradient(
+      to bottom right,
+      rgba(165, 180, 252, 0.1),
+      rgba(255, 209, 102, 0.1),
+      rgba(255, 255, 255, 1)
+    );
   }
   100% {
-    background: linear-gradient(to bottom right, rgba(165, 180, 252, 0.3), rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+    background: linear-gradient(
+      to bottom right,
+      rgba(165, 180, 252, 0.3),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 1)
+    );
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .hero-gradient {
-    background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.3), rgba(10, 10, 10, 1), rgba(10, 10, 10, 1));
+    background: linear-gradient(
+      to bottom right,
+      rgba(99, 102, 241, 0.3),
+      rgba(10, 10, 10, 1),
+      rgba(10, 10, 10, 1)
+    );
     animation: darkGradientShift 20s ease infinite alternate;
   }
-  
+
+  /* CSS Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out forwards;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-in-out forwards;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-slide-down {
+    animation: slideDown 0.5s ease-in-out forwards;
+  }
+
+  @keyframes slideLeft {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  .animate-slide-left {
+    animation: slideLeft 0.5s ease-in-out forwards;
+  }
+
+  @keyframes slideRight {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  .animate-slide-right {
+    animation: slideRight 0.5s ease-in-out forwards;
+  }
   @keyframes darkGradientShift {
     0% {
-      background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.3), rgba(10, 10, 10, 1), rgba(10, 10, 10, 1));
+      background: linear-gradient(
+        to bottom right,
+        rgba(99, 102, 241, 0.3),
+        rgba(10, 10, 10, 1),
+        rgba(10, 10, 10, 1)
+      );
     }
     50% {
-      background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.2), rgba(255, 209, 102, 0.05), rgba(10, 10, 10, 1));
+      background: linear-gradient(
+        to bottom right,
+        rgba(99, 102, 241, 0.2),
+        rgba(255, 209, 102, 0.05),
+        rgba(10, 10, 10, 1)
+      );
     }
     100% {
-      background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.3), rgba(10, 10, 10, 1), rgba(10, 10, 10, 1));
+      background: linear-gradient(
+        to bottom right,
+        rgba(99, 102, 241, 0.3),
+        rgba(10, 10, 10, 1),
+        rgba(10, 10, 10, 1)
+      );
+    }
+  }
+
+  /* Keyframes for floating elements */
+  @keyframes float-up-down {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float-side-to-side {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  /* Keyframes for floating elements */
+  @keyframes float-up-down {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float-side-to-side {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    100% {
+      transform: translateX(0);
     }
   }
 }

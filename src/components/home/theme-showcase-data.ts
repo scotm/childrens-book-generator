@@ -33,6 +33,6 @@ export const themes = [
     id: 'jungle',
     name: 'Jungle',
     description: 'Explore wild forests and meet animals',
-    emoji: '��',
+    emoji: '🌴',
   },
 ] as const;

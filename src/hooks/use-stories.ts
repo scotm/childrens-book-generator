@@ -199,7 +199,7 @@ export function useUpdateStory() {
                 readingLevel: data.readingLevel,
                 updatedAt: new Date(),
               }
-            : story
+            : story,
         );
 
         queryClient.setQueryData<Story[]>(['stories'], updatedStories);
@@ -260,7 +260,7 @@ export function useDeleteStory() {
       if (previousStories) {
         queryClient.setQueryData<Story[]>(
           ['stories'],
-          previousStories.filter((story) => story.id !== numericId)
+          previousStories.filter((story) => story.id !== numericId),
         );
       }
 
