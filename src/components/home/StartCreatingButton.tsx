@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import { CSSButton } from '@/components/ui/animation/css-button';
 

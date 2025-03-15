@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
   if (!secret) {
     console.log(
-      'Skipping webhook validation. To validate webhooks, set REPLICATE_WEBHOOK_SIGNING_SECRET'
+      'Skipping webhook validation. To validate webhooks, set REPLICATE_WEBHOOK_SIGNING_SECRET',
     );
     const body = await request.json();
     console.log(body);

@@ -15,8 +15,7 @@ async function validateAuth() {
 }
 
 // Utility function to parse and validate story ID
-function validateStoryId(searchParams: URLSearchParams) {
-  const storyId = searchParams.get('storyId');
+function validateStoryId(storyId: string) {
   if (!storyId) throw new ValidationError('Invalid story ID');
 
   const id = Number.parseInt(storyId, 10);
@@ -36,10 +35,10 @@ async function executeRoute<T>(handler: () => Promise<T>) {
 }
 
 // GET /api/story/[storyId] - Get a specific story with its chapters and content
-export async function GET(req: Request) {
+export async function GET(req: Request, { params }: { params: Promise<string> }) {
   return executeRoute(async () => {
     const userId = await validateAuth();
-    const id = validateStoryId(new URL(req.url).searchParams);
+    const id = validateStoryId(await params);
 
     const story = await storyService.getStoryById(id, userId);
     if (!story) throw new NotFoundError('Story not found');
@@ -49,10 +48,10 @@ export async function GET(req: Request) {
 }
 
 // PUT /api/story/[storyId] - Update a story
-export async function PUT(req: Request) {
+export async function PUT(req: Request, { params }: { params: Promise<string> }) {
   return executeRoute(async () => {
     const userId = await validateAuth();
-    const id = validateStoryId(new URL(req.url).searchParams);
+    const id = validateStoryId(await params);
 
     const body = await req.json();
     const validationResult = UpdateStoryDto.safeParse(body);
@@ -69,10 +68,10 @@ export async function PUT(req: Request) {
 }
 
 // DELETE /api/story/[storyId] - Delete a story
-export async function DELETE(req: Request) {
+export async function DELETE(req: Request, { params }: { params: Promise<string> }) {
   return executeRoute(async () => {
     const userId = await validateAuth();
-    const id = validateStoryId(new URL(req.url).searchParams);
+    const id = validateStoryId(await params);
 
     const success = await storyService.deleteStory(id, userId);
     if (!success) throw new NotFoundError('Story not found');

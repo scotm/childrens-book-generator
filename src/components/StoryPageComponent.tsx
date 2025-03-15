@@ -58,7 +58,7 @@ function StoryContent({ id }: { id: string }) {
         ...item,
         chapterId: chapter.id,
         chapterTitle: chapter.title,
-      }))
+      })),
     ) || [];
 
   return (

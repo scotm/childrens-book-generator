@@ -1,9 +1,8 @@
 'use client';
 
 import { BackToHomeButton } from '@/components/ui/BackToHomeButton';
-import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
-import { FadeIn, SlideIn } from '@/components/ui/enhanced/animated-elements';
-import Link from 'next/link';
+import { FadeIn } from '@/components/ui/enhanced/Animated/FadeIn';
+import { SlideIn } from '@/components/ui/enhanced/Animated/SlideIn';
 import type React from 'react';
 
 export default function CreateLayout({ children }: { children: React.ReactNode }) {

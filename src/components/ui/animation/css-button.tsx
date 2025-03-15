@@ -19,7 +19,7 @@ export const CSSButton = ({
         'font-medium transition-all duration-200',
         animationType === 'bounce' && 'hover:scale-105 active:scale-95 active:translate-y-1',
         animationType === 'pulse' && 'hover:shadow-glow hover:scale-102',
-        className
+        className,
       )}
       {...props}
     >

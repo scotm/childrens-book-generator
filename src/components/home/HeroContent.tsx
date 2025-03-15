@@ -1,5 +1,4 @@
 import { HeroButtons } from './HeroButtons';
-import { motion } from 'framer-motion';
 
 export function HeroContent() {
   return (
@@ -13,13 +12,7 @@ export function HeroContent() {
         Create personalized stories featuring your child as the hero, with their pets, friends, and
         favorite adventures. Bring their imagination to life!
       </p>
-      <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-        <HeroButtons />
-      </motion.div>
+      <HeroButtons />
     </div>
   );
 }

@@ -1,16 +1,12 @@
-// src/app/create/page.tsx
 'use client';
-
 import { useUser } from '@clerk/nextjs';
 import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { z } from 'zod';
 import dynamic from 'next/dynamic';
-import type { ComponentType } from 'react';
 
 import { CSSButton } from '@/components/ui/animation/css-button';
-import { StaggerContainer } from '@/components/ui/enhanced/animated-elements';
 import { CSSFadeIn } from '@/components/ui/animation/css-animation';
 
 // Lazy load the ThemeSelector which is below the fold
@@ -18,16 +14,7 @@ const ThemeSelector = dynamic(
   () => import('@/components/create/theme-selector').then((mod) => mod.ThemeSelector),
   {
     loading: () => <div className="theme-selector-skeleton" />,
-  }
-);
-
-// Dynamically import the AnimatedButton for below-the-fold content
-const AnimatedButton = dynamic(
-  () => import('@/components/ui/enhanced/animated-button').then(mod => mod.AnimatedButton),
-  {
-    ssr: false,
-    loading: () => <CSSButton size="lg" className="rounded-full px-8">Loading...</CSSButton>
-  }
+  },
 );
 
 import {
@@ -43,6 +30,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { UploadButton } from '@/lib/utils/uploadthing';
 import { motion } from 'framer-motion';
+import { StaggerContainer } from '@/components/ui/enhanced/Animated/StaggerContainer';
 
 // Form schema with validation rules
 const formSchema = z.object({
@@ -63,11 +51,6 @@ const formSchema = z.object({
   ] as const),
   additionalDetails: z.string(),
 });
-
-type FormError = {
-  message?: string;
-  path?: string[];
-};
 
 // Theme options with icons and colors
 const themeOptions = [
@@ -121,22 +104,6 @@ export default function CreateStory() {
       }
     },
   });
-
-  // if (!user || !user.primaryEmailAddress) {
-  //   return (
-  //     <FadeIn>
-  //       <div className="bg-destructive/10 text-destructive p-4 rounded-lg border border-destructive/20">
-  //         <p className="text-sm">
-  //           You must have a verified email address to create a new story. Please{' '}
-  //           <Link href="/account" className="text-primary underline">
-  //             verify your email address
-  //           </Link>{' '}
-  //           to continue.
-  //         </p>
-  //       </div>
-  //     </FadeIn>
-  //   );
-  // }
 
   return (
     <CSSFadeIn>
@@ -454,12 +421,12 @@ export default function CreateStory() {
             animate={{ opacity: 1, y: 0 }}
             className="bg-destructive/10 text-destructive p-4 rounded-lg border border-destructive/20"
           >
-            {(form.state.errors).map((error) => {
+            {form.state.errors.map((error) => {
               if (!error) return null;
               console.log('Error:', error);
 
               const errorId = error.path?.join('.') || crypto.randomUUID();
-              const message = error.message.join(",") || 'Unknown error';
+              const message = error.message.join(',') || 'Unknown error';
 
               return message ? (
                 <p key={errorId} className="text-sm">
