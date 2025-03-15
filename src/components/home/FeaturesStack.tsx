@@ -1,56 +1,13 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import { CardContent, CardHeader, CardTitle, EnhancedCard } from '../ui/enhanced/enhanced-card';
-import { sleep } from '@/lib/utils';
+import { features } from './features-data';
 
-export const FeaturesStack = () => {
-  const features = [
-    {
-      id: 'personalized',
-      title: 'Personalized Heroes',
-      description: 'Stories star your child and their pets as the main characters',
-      icon: '👧',
-    },
-    {
-      id: 'reading-level',
-      title: 'Read-Level Matched',
-      description: "Content tailored to your child's reading level",
-      icon: '📚',
-    },
-    {
-      id: 'themes',
-      title: 'Magical Themes',
-      description: 'Choose from fantasy, adventure, space exploration and more',
-      icon: '✨',
-    },
-    {
-      id: 'illustrations',
-      title: 'Illustrated Joy',
-      description: 'Vibrant illustrations bring the stories to life',
-      icon: '🎨',
-    },
-  ];
-
-  const refs = useRef<HTMLDivElement[]>([]);
-
-  useEffect(() => {
-    sleep(1000).then(() => {
-      const cards: HTMLElement[] = [];
-      for (const feature of features) {
-        cards.push(document.getElementById(feature.id) as HTMLElement);
-      }
-      console.log(cards);
-      const maxHeight = Math.max(...cards.map((card) => card.clientHeight));
-      for (const card of cards) card.style.height = `${maxHeight}px`;
-    });
-  }, []);
-
+export function FeaturesStack() {
   return (
     <>
-      {features.map((feature, index) => (
+      {features.map((feature) => (
         <EnhancedCard
-          id={feature.id}
           key={feature.id}
           variant="gradient"
           className="text-center h-full flex flex-col justify-between"
@@ -69,4 +26,4 @@ export const FeaturesStack = () => {
       ))}
     </>
   );
-};
+}
