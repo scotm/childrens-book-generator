@@ -11,14 +11,24 @@ import { cn } from '@/lib/utils';
 import type React from 'react';
 
 export interface EnhancedCardProps extends React.ComponentProps<typeof Card> {
-  id: string;
   hoverEffect?: 'lift' | 'glow' | 'none';
   variant?: 'default' | 'gradient' | 'outlined';
   animateEntry?: boolean;
 }
 
+const variantClasses: Map<NonNullable<EnhancedCardProps['variant']>, string> = new Map([
+  ['default', ''],
+  ['gradient', 'bg-gradient-to-br from-white to-lavender/20 border-lavender/30'],
+  ['outlined', 'bg-transparent border-2 border-primary/30'],
+]);
+
+const hoverClasses: Map<NonNullable<EnhancedCardProps['hoverEffect']>, string> = new Map([
+  ['lift', 'transition-transform duration-300 hover:-translate-y-2'],
+  ['glow', 'transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/20'],
+  ['none', ''],
+]);
+
 export const EnhancedCard = ({
-  id,
   className,
   hoverEffect = 'lift',
   variant = 'default',
@@ -26,28 +36,6 @@ export const EnhancedCard = ({
   children,
   ...props
 }: EnhancedCardProps) => {
-  const getVariantClasses = () => {
-    switch (variant) {
-      case 'gradient':
-        return 'bg-gradient-to-br from-white to-lavender/20 border-lavender/30';
-      case 'outlined':
-        return 'bg-transparent border-2 border-primary/30';
-      default:
-        return '';
-    }
-  };
-
-  const getHoverClasses = () => {
-    switch (hoverEffect) {
-      case 'lift':
-        return 'transition-transform duration-300 hover:-translate-y-2';
-      case 'glow':
-        return 'transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/20';
-      default:
-        return '';
-    }
-  };
-
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -62,7 +50,6 @@ export const EnhancedCard = ({
 
   return (
     <motion.div
-      id={id}
       initial={animateEntry ? 'hidden' : 'visible'}
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
@@ -71,8 +58,8 @@ export const EnhancedCard = ({
       <Card
         className={cn(
           'rounded-xl overflow-hidden',
-          getVariantClasses(),
-          getHoverClasses(),
+          variantClasses.get(variant) ?? '',
+          hoverClasses.get(hoverEffect) ?? '',
           className
         )}
         {...props}

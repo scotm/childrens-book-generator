@@ -1,18 +1,16 @@
 import { motion, type Variants } from 'framer-motion';
 import React from 'react';
 
-// Fade in component
-export const FadeIn = ({
-  children,
-  delay = 0,
-  duration = 0.5,
-  ...props
-}: {
+// Type definitions
+type FadeInProps = {
   children: React.ReactNode;
   delay?: number;
   duration?: number;
   [key: string]: unknown;
-}) => {
+};
+
+// Fade in component
+export const FadeIn = ({ children, delay = 0, duration = 0.5, ...props }: FadeInProps) => {
   const variants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -31,6 +29,28 @@ export const FadeIn = ({
   );
 };
 
+const getDirectionValues = (direction: SlideInProps['direction'] = 'up', distance = 50) => {
+  switch (direction) {
+    case 'up':
+      return { hidden: { y: distance }, visible: { y: 0 } };
+    case 'down':
+      return { hidden: { y: -distance }, visible: { y: 0 } };
+    case 'left':
+      return { hidden: { x: distance }, visible: { x: 0 } };
+    case 'right':
+      return { hidden: { x: -distance }, visible: { x: 0 } };
+  }
+};
+
+type SlideInProps = {
+  children: React.ReactNode;
+  direction?: 'up' | 'down' | 'left' | 'right';
+  delay?: number;
+  duration?: number;
+  distance?: number;
+  [key: string]: unknown;
+};
+
 // Slide in component
 export const SlideIn = ({
   children,
@@ -39,30 +59,8 @@ export const SlideIn = ({
   duration = 0.5,
   distance = 50,
   ...props
-}: {
-  children: React.ReactNode;
-  direction?: 'up' | 'down' | 'left' | 'right';
-  delay?: number;
-  duration?: number;
-  distance?: number;
-  [key: string]: unknown;
-}) => {
-  const getDirectionValues = () => {
-    switch (direction) {
-      case 'up':
-        return { hidden: { y: distance }, visible: { y: 0 } };
-      case 'down':
-        return { hidden: { y: -distance }, visible: { y: 0 } };
-      case 'left':
-        return { hidden: { x: distance }, visible: { x: 0 } };
-      case 'right':
-        return { hidden: { x: -distance }, visible: { x: 0 } };
-      default:
-        return { hidden: { y: distance }, visible: { y: 0 } };
-    }
-  };
-
-  const directionValues = getDirectionValues();
+}: SlideInProps) => {
+  const directionValues = getDirectionValues(direction, distance);
 
   const variants: Variants = {
     hidden: {
@@ -86,18 +84,29 @@ export const SlideIn = ({
   );
 };
 
+const staggerChildVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 },
+  },
+};
+
+type StaggerContainerProps = {
+  children: React.ReactNode;
+  delay?: number;
+  staggerDelay?: number;
+  [key: string]: unknown;
+};
+
 // Staggered children animation
 export const StaggerContainer = ({
   children,
   delay = 0.1,
   staggerDelay = 0.1,
   ...props
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  staggerDelay?: number;
-  [key: string]: unknown;
-}) => {
+}: StaggerContainerProps) => {
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -106,15 +115,6 @@ export const StaggerContainer = ({
         delayChildren: delay,
         staggerChildren: staggerDelay,
       },
-    },
-  };
-
-  const childVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
     },
   };
 
@@ -127,22 +127,20 @@ export const StaggerContainer = ({
       {...props}
     >
       {React.Children.map(children, (child) => (
-        <motion.div variants={childVariants}>{child}</motion.div>
+        <motion.div variants={staggerChildVariants}>{child}</motion.div>
       ))}
     </motion.div>
   );
 };
 
-// Scroll-triggered reveal
-export const ScrollReveal = ({
-  children,
-  threshold = 0.1,
-  ...props
-}: {
+type ScrollRevealProps = {
   children: React.ReactNode;
   threshold?: number;
   [key: string]: unknown;
-}) => {
+};
+
+// Scroll-triggered reveal
+export const ScrollReveal = ({ children, threshold = 0.1, ...props }: ScrollRevealProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
