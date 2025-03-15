@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "biomejs.biome",
+    "dsznajder.es7-react-js-snippets",
+    "bradlc.vscode-tailwindcss",
+    "github.vscode-pull-request-github",
+    "usernamehw.errorlens",
+    "ast-grep.ast-grep-vscode",
+    "ms-vsliveshare.vsliveshare",
+    "ms-vscode.vscode-js-profile-flame",
+    "unifiedjs.vscode-mdx"
+  ]
+}
