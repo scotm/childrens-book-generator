@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "bunx concurrently --kill-others --names \"next,trigger\" --prefix-colors \"yellow,blue\" \"next dev\" \"bun run trigger:dev\"",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "biome lint ./src",
