@@ -6,10 +6,30 @@ import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { z } from 'zod';
+import dynamic from 'next/dynamic';
+import type { ComponentType } from 'react';
 
-import { ThemeSelector } from '@/components/create/theme-selector';
-import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
-import { FadeIn, StaggerContainer } from '@/components/ui/enhanced/animated-elements';
+import { CSSButton } from '@/components/ui/animation/css-button';
+import { StaggerContainer } from '@/components/ui/enhanced/animated-elements';
+import { CSSFadeIn } from '@/components/ui/animation/css-animation';
+
+// Lazy load the ThemeSelector which is below the fold
+const ThemeSelector = dynamic(
+  () => import('@/components/create/theme-selector').then((mod) => mod.ThemeSelector),
+  {
+    loading: () => <div className="theme-selector-skeleton" />,
+  }
+);
+
+// Dynamically import the AnimatedButton for below-the-fold content
+const AnimatedButton = dynamic(
+  () => import('@/components/ui/enhanced/animated-button').then(mod => mod.AnimatedButton),
+  {
+    ssr: false,
+    loading: () => <CSSButton size="lg" className="rounded-full px-8">Loading...</CSSButton>
+  }
+);
+
 import {
   CardContent,
   CardHeader,
@@ -119,7 +139,7 @@ export default function CreateStory() {
   // }
 
   return (
-    <FadeIn>
+    <CSSFadeIn>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -395,7 +415,7 @@ export default function CreateStory() {
                   >
                     <ThemeSelector
                       value={field.state.value}
-                      onChange={(value) => field.setValue(value)}
+                      onChange={(value: string) => field.setValue(value)}
                       themes={themeOptions}
                     />
                   </EnhancedFormField>
@@ -451,7 +471,7 @@ export default function CreateStory() {
         )}
 
         <div className="flex justify-end">
-          <AnimatedButton
+          <CSSButton
             type="submit"
             size="lg"
             disabled={isLoading || form.state.isSubmitting || !form.state.canSubmit}
@@ -469,9 +489,9 @@ export default function CreateStory() {
                 <span className="ml-2">✨</span>
               </>
             )}
-          </AnimatedButton>
+          </CSSButton>
         </div>
       </form>
-    </FadeIn>
+    </CSSFadeIn>
   );
 }

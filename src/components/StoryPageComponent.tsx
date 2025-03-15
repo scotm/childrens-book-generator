@@ -6,8 +6,10 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { QueryClientProvider } from './providers/QueryClientProvider';
 
-export const StoryPageComponent = ({ id }: { id: string }) => {
+// Separate the component that uses React Query
+function StoryContent({ id }: { id: string }) {
   const { user, isLoaded: isUserLoaded } = useUser();
   const router = useRouter();
 
@@ -107,5 +109,14 @@ export const StoryPageComponent = ({ id }: { id: string }) => {
         </Card>
       </div>
     </main>
+  );
+}
+
+// Wrapper component that provides the QueryClient
+export const StoryPageComponent = ({ id }: { id: string }) => {
+  return (
+    <QueryClientProvider>
+      <StoryContent id={id} />
+    </QueryClientProvider>
   );
 };
