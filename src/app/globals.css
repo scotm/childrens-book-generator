@@ -257,37 +257,77 @@ body {
 }
 
 .hero-gradient {
-  background: linear-gradient(to bottom right, rgba(165, 180, 252, 0.3), rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+  background: linear-gradient(
+    to bottom right,
+    rgba(165, 180, 252, 0.3),
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 1)
+  );
   animation: gradientShift 20s ease infinite alternate;
 }
 
 @keyframes gradientShift {
   0% {
-    background: linear-gradient(to bottom right, rgba(165, 180, 252, 0.3), rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+    background: linear-gradient(
+      to bottom right,
+      rgba(165, 180, 252, 0.3),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 1)
+    );
   }
   50% {
-    background: linear-gradient(to bottom right, rgba(165, 180, 252, 0.1), rgba(255, 209, 102, 0.1), rgba(255, 255, 255, 1));
+    background: linear-gradient(
+      to bottom right,
+      rgba(165, 180, 252, 0.1),
+      rgba(255, 209, 102, 0.1),
+      rgba(255, 255, 255, 1)
+    );
   }
   100% {
-    background: linear-gradient(to bottom right, rgba(165, 180, 252, 0.3), rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+    background: linear-gradient(
+      to bottom right,
+      rgba(165, 180, 252, 0.3),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 1)
+    );
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .hero-gradient {
-    background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.3), rgba(10, 10, 10, 1), rgba(10, 10, 10, 1));
+    background: linear-gradient(
+      to bottom right,
+      rgba(99, 102, 241, 0.3),
+      rgba(10, 10, 10, 1),
+      rgba(10, 10, 10, 1)
+    );
     animation: darkGradientShift 20s ease infinite alternate;
   }
-  
+
   @keyframes darkGradientShift {
     0% {
-      background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.3), rgba(10, 10, 10, 1), rgba(10, 10, 10, 1));
+      background: linear-gradient(
+        to bottom right,
+        rgba(99, 102, 241, 0.3),
+        rgba(10, 10, 10, 1),
+        rgba(10, 10, 10, 1)
+      );
     }
     50% {
-      background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.2), rgba(255, 209, 102, 0.05), rgba(10, 10, 10, 1));
+      background: linear-gradient(
+        to bottom right,
+        rgba(99, 102, 241, 0.2),
+        rgba(255, 209, 102, 0.05),
+        rgba(10, 10, 10, 1)
+      );
     }
     100% {
-      background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.3), rgba(10, 10, 10, 1), rgba(10, 10, 10, 1));
+      background: linear-gradient(
+        to bottom right,
+        rgba(99, 102, 241, 0.3),
+        rgba(10, 10, 10, 1),
+        rgba(10, 10, 10, 1)
+      );
     }
   }
 }
