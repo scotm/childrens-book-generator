@@ -68,6 +68,7 @@ export class StoryService {
           user_id: userId,
           thumbnail: storyData.thumbnail,
           readingLevel: storyData.readingLevel,
+          storyTheme: storyData.storyTheme,
         });
 
         // Create chapters and content

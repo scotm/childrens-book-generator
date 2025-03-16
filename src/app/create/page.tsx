@@ -18,21 +18,10 @@ import { LoadingSpinner } from '@/components/ui/icons';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useAppForm } from '@/hooks/createForm';
+import { readingLevelOptionsArray, storyThemeOptionArray } from '@/lib/constants';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { z } from 'zod';
-
-// Form schema with validation rules
-const storyThemeOptionArray = [
-  'adventure',
-  'fantasy',
-  'space',
-  'underwater',
-  'dinosaurs',
-  'jungle',
-] as const;
-
-const readingLevelOptionsArray = ['beginner', 'intermediate', 'advanced'] as const;
 
 const createOutlineFormSchema = z.object({
   childName: z.string().min(1, { message: "Child's name is required" }),

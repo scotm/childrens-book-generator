@@ -1,12 +1,16 @@
+import { storyThemeOptionArray } from '@/lib/constants';
+import { readingLevelOptionsArray } from '@/lib/constants';
 import { integer, jsonb, pgTable, timestamp, varchar, text, pgEnum } from 'drizzle-orm/pg-core';
 
-export const readingLevelEnum = pgEnum('reading_level', ['beginner', 'intermediate', 'advanced']);
+export const readingLevelEnum = pgEnum('reading_level', readingLevelOptionsArray);
+export const storyThemeEnum = pgEnum('story_theme', storyThemeOptionArray);
 
 export const storiesTable = pgTable('stories', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   user_id: text('user_id').notNull(),
   title: varchar({ length: 255 }).notNull(),
   thumbnail: text('thumbnail').notNull(),
+  storyTheme: storyThemeEnum('story_theme').notNull(),
   readingLevel: readingLevelEnum('reading_level').notNull(),
   createdAt: timestamp().defaultNow(),
   updatedAt: timestamp()

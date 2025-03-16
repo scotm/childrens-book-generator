@@ -117,6 +117,7 @@ export function useCreateStory() {
         user_id: 'current-user', // This will be replaced by the server
         title: newStoryData.title,
         thumbnail: newStoryData.thumbnail,
+        storyTheme: newStoryData.storyTheme,
         readingLevel: newStoryData.readingLevel,
         createdAt: new Date(),
         updatedAt: new Date(),

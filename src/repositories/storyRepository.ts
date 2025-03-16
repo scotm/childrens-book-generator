@@ -1,5 +1,6 @@
 import db from '@/db';
 import { storiesTable, storyChaptersTable, storyContentTable } from '@/db/schema';
+import type { ReadingLevel, StoryTheme } from '@/types';
 import { eq, and } from 'drizzle-orm';
 
 /**
@@ -58,7 +59,8 @@ export class StoryRepository {
     title: string;
     user_id: string;
     thumbnail: string;
-    readingLevel: 'beginner' | 'intermediate' | 'advanced';
+    readingLevel: ReadingLevel;
+    storyTheme: StoryTheme;
   }) {
     const [newStory] = await db.insert(storiesTable).values(storyData).returning();
 

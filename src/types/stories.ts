@@ -1,3 +1,4 @@
+import { readingLevelOptionsArray, storyThemeOptionArray } from '@/lib/constants';
 import { z } from 'zod';
 
 // Validate request body
@@ -31,7 +32,8 @@ export const storySchema = z.object({
   title: z.string(),
   chapters: z.array(storyChapterSchema),
   thumbnail: z.string(),
-  readingLevel: z.enum(['beginner', 'intermediate', 'advanced']),
+  readingLevel: z.enum(readingLevelOptionsArray),
+  storyTheme: z.enum(storyThemeOptionArray),
 });
 
 // Define the type based on the schema
