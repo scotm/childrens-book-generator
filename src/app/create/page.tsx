@@ -4,7 +4,6 @@
 import { createStoryFormOpts } from '@/components/create/SharedForm';
 import { ThemeSelector } from '@/components/create/theme-selector';
 import { UploadThingField } from '@/components/create/UploadThingField';
-import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
 import { FadeIn, StaggerContainer } from '@/components/ui/enhanced/animated-elements';
 import {
   CardContent,
@@ -14,7 +13,6 @@ import {
 } from '@/components/ui/enhanced/enhanced-card';
 import { EnhancedFormField } from '@/components/ui/enhanced/enhanced-form-field';
 import { EnhancedSelect } from '@/components/ui/enhanced/enhanced-select';
-import { LoadingSpinner } from '@/components/ui/icons';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useAppForm } from '@/hooks/createForm';
@@ -46,7 +44,6 @@ const readingLevelOptions: { value: (typeof readingLevelOptionsArray)[number]; l
 
 export default function CreateStory() {
   // const { user } = useUser();
-  const [isLoading, setIsLoading] = useState(false);
 
   const form = useAppForm({
     ...createStoryFormOpts,
@@ -54,8 +51,6 @@ export default function CreateStory() {
       onChange: createOutlineFormSchema,
     },
     onSubmit: async ({ value }) => {
-      setIsLoading(true);
-
       try {
         // TODO: Implement API call to generate story
         console.log('Form submitted with values:', value);
@@ -63,8 +58,6 @@ export default function CreateStory() {
         // router.push('/story/preview');
       } catch (error) {
         console.error('Error generating story:', error);
-      } finally {
-        setIsLoading(false);
       }
     },
   });
@@ -340,27 +333,9 @@ export default function CreateStory() {
           </motion.div>
         )}
 
-        <div className="flex justify-end">
-          <AnimatedButton
-            type="submit"
-            size="lg"
-            disabled={isLoading || form.state.isSubmitting || !form.state.canSubmit}
-            className="rounded-full px-8 shadow-lg shadow-primary/20"
-            animationType="bounce"
-          >
-            {isLoading ? (
-              <div className="flex items-center gap-2">
-                <LoadingSpinner />
-                Generating Story...
-              </div>
-            ) : (
-              <>
-                Generate Story
-                <span className="ml-2">✨</span>
-              </>
-            )}
-          </AnimatedButton>
-        </div>
+        <form.AppForm>
+          <form.SubscribeButton label="Generate Story" />
+        </form.AppForm>
       </form>
     </FadeIn>
   );

@@ -1,19 +1,35 @@
 import { createFormHook } from '@tanstack/react-form';
 import { fieldContext, formContext, useFormContext } from './createformContext';
 import { lazy } from 'react';
+import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
+import { LoadingSpinner } from '@/components/ui/icons';
 
 const UploadThingField = lazy(() => import('@/components/create/UploadThingField'));
 
 function SubscribeButton({ label }: { label: string }) {
   const form = useFormContext();
   return (
-    <form.Subscribe selector={(state) => state.isSubmitting}>
-      {(isSubmitting) => (
-        <button type="submit" disabled={isSubmitting}>
-          {label}
-        </button>
-      )}
-    </form.Subscribe>
+    <div className="flex justify-end">
+      <AnimatedButton
+        type="submit"
+        size="lg"
+        disabled={form.state.isSubmitting || !form.state.canSubmit}
+        className="rounded-full px-8 shadow-lg shadow-primary/20"
+        animationType="bounce"
+      >
+        {form.state.isSubmitting ? (
+          <div className="flex items-center gap-2">
+            Generating Story...
+            <LoadingSpinner />
+          </div>
+        ) : (
+          <>
+            {label}
+            <span className="ml-2">✨</span>
+          </>
+        )}
+      </AnimatedButton>
+    </div>
   );
 }
 
