@@ -15,6 +15,9 @@ export const env = createEnv({
     AUTH_NEEDED: z.string().default('true'),
     UPLOADTHING_TOKEN: z.string(),
     TRIGGER_DEV_TOKEN: z.string(),
+    R2_ENDPOINT: z.string(),
+    R2_ACCESS_KEY_ID: z.string(),
+    R2_SECRET_ACCESS_KEY: z.string(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -38,5 +41,8 @@ export const env = createEnv({
     AUTH_NEEDED: process.env.AUTH_NEEDED,
     UPLOADTHING_TOKEN: process.env.UPLOADTHING_TOKEN,
     TRIGGER_DEV_TOKEN: process.env.TRIGGER_DEV_TOKEN,
+    R2_ENDPOINT: process.env.R2_ENDPOINT,
+    R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID,
+    R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
   },
 });
