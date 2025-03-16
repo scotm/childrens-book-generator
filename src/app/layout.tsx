@@ -32,6 +32,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <head>
+          <meta name="apple-mobile-web-app-title" content="Tales Together" />
+        </head>
         <body className={`${inter.variable} ${quicksand.variable} font-sans`}>
           <QueryProvider>
             <div className="min-h-screen flex flex-col">
