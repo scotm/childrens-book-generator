@@ -18,7 +18,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { useAppForm } from '@/hooks/createForm';
 import { readingLevelOptionsArray, storyThemeOptionArray } from '@/lib/constants';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import { z } from 'zod';
 
 const createOutlineFormSchema = z.object({
