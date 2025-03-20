@@ -1,6 +1,6 @@
 'use client';
 
-import { CardContent, CardHeader, CardTitle, EnhancedCard } from '../ui/enhanced/enhanced-card';
+import { CardContent, CardHeader, CardTitle, EnhancedCard } from '../../ui/enhanced/enhanced-card';
 import { features } from './features-data';
 
 export function FeaturesStack() {
