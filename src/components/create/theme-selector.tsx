@@ -1,3 +1,5 @@
+'use client';
+
 import type { CreateOutlineFormData } from '@/app/create/page';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';

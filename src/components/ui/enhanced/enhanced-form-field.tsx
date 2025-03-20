@@ -1,3 +1,5 @@
+'use client';
+
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import type { StandardSchemaV1Issue } from '@tanstack/react-form';
