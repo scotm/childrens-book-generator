@@ -1,6 +1,3 @@
-import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs';
-import Link from 'next/link';
-import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
 import { HeroButtons } from './HeroButtons';
 
 export function HeroContent() {
