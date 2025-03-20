@@ -1,13 +1,13 @@
-import { ThemeShowcaseHeader } from './ThemeShowcaseHeader';
 import { ThemeCard } from './ThemeCard';
+import { ThemeShowcaseHeader } from './ThemeShowcaseHeader';
 
 import Image from 'next/image';
 import adventureEmoji from '../../../public/images/recraft-ai-recraft-v3-svg/adventure.svg';
+import dinosaursEmoji from '../../../public/images/recraft-ai-recraft-v3-svg/dinosaurs.svg';
 import fantasyEmoji from '../../../public/images/recraft-ai-recraft-v3-svg/fantasy.svg';
+import jungleEmoji from '../../../public/images/recraft-ai-recraft-v3-svg/jungle.svg';
 import spaceEmoji from '../../../public/images/recraft-ai-recraft-v3-svg/space.svg';
 import underwaterEmoji from '../../../public/images/recraft-ai-recraft-v3-svg/underwater.svg';
-import dinosaursEmoji from '../../../public/images/recraft-ai-recraft-v3-svg/dinosaurs.svg';
-import jungleEmoji from '../../../public/images/recraft-ai-recraft-v3-svg/jungle.svg';
 
 type Theme = {
   id: string;

@@ -1,6 +1,6 @@
 import { storyThemeOptionArray } from '@/lib/constants';
 import { readingLevelOptionsArray } from '@/lib/constants';
-import { integer, jsonb, pgTable, timestamp, varchar, text, pgEnum } from 'drizzle-orm/pg-core';
+import { integer, jsonb, pgEnum, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const readingLevelEnum = pgEnum('reading_level', readingLevelOptionsArray);
 export const storyThemeEnum = pgEnum('story_theme', storyThemeOptionArray);

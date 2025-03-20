@@ -1,6 +1,6 @@
-import type { Story } from '@/types/stories';
 import { DatabaseError } from '@/lib/errors';
 import { StoryRepository } from '@/repositories/storyRepository';
+import type { Story } from '@/types/stories';
 
 export class StoryService {
   private repository: StoryRepository;

@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
+import Link from 'next/link';
 
 export function StartCreatingButton() {
   return (

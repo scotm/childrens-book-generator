@@ -1,7 +1,7 @@
 import { useFieldContext } from '@/hooks/createformContext';
+import { UploadButton } from '@/lib/utils/uploadthing';
 import React from 'react';
 import { CloseIcon } from '../ui/icons';
-import { UploadButton } from '@/lib/utils/uploadthing';
 import '@uploadthing/react/styles.css';
 
 type UploadThingFieldAppearance = {

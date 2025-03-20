@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, type Variants } from 'framer-motion';
+import { type Variants, motion } from 'framer-motion';
 import React from 'react';
 
 // Type definitions

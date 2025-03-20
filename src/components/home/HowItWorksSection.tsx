@@ -1,6 +1,6 @@
 import { HowItWorksHeader } from './HowItWorksHeader';
-import { StepCard } from './StepCard';
 import { StartCreatingButton } from './StartCreatingButton';
+import { StepCard } from './StepCard';
 
 export const steps = [
   {

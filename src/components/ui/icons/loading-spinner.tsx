@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { cn } from '@/lib/utils';
+import * as React from 'react';
 
 export interface LoadingSpinnerProps extends React.SVGProps<SVGSVGElement> {
   /** The size of the icon in pixels. @default 16 */

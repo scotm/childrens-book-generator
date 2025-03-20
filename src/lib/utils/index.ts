@@ -1,5 +1,5 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 /**
  * Combines multiple class names using clsx and tailwind-merge.
@@ -33,13 +33,13 @@ export function sleep(ms: number) {
  * Valid MIME types for image files supported by the application.
  */
 type ContentType =
-  | "image/jpeg"
-  | "image/png"
-  | "image/gif"
-  | "image/webp"
-  | "image/svg+xml"
-  | "image/bmp"
-  | "image/tiff";
+  | 'image/jpeg'
+  | 'image/png'
+  | 'image/gif'
+  | 'image/webp'
+  | 'image/svg+xml'
+  | 'image/bmp'
+  | 'image/tiff';
 
 /**
  * Determines the MIME content type based on a file's extension.
@@ -53,24 +53,24 @@ type ContentType =
  * getContentTypeFromFilename('icon.png') // Returns 'image/png'
  */
 export const getContentTypeFromFilename = (filename: string): ContentType => {
-  const extension = filename.split(".").pop()?.toLowerCase();
+  const extension = filename.split('.').pop()?.toLowerCase();
   switch (extension) {
-    case "jpg":
-    case "jpeg":
-      return "image/jpeg";
-    case "png":
-      return "image/png";
-    case "gif":
-      return "image/gif";
-    case "webp":
-      return "image/webp";
-    case "svg":
-      return "image/svg+xml";
-    case "bmp":
-      return "image/bmp";
-    case "tiff":
-    case "tif":
-      return "image/tiff";
+    case 'jpg':
+    case 'jpeg':
+      return 'image/jpeg';
+    case 'png':
+      return 'image/png';
+    case 'gif':
+      return 'image/gif';
+    case 'webp':
+      return 'image/webp';
+    case 'svg':
+      return 'image/svg+xml';
+    case 'bmp':
+      return 'image/bmp';
+    case 'tiff':
+    case 'tif':
+      return 'image/tiff';
     default:
       throw new Error(`Unknown file extension: ${extension}`);
   }

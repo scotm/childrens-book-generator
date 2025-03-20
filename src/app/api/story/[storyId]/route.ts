@@ -1,8 +1,8 @@
-import { auth } from '@clerk/nextjs/server';
+import { NotFoundError, UnauthorizedError, ValidationError } from '@/lib/errors';
 import { createSuccessResponse, handleError } from '@/lib/responseHelpers';
 import { StoryService } from '@/services/storyService';
-import { NotFoundError, UnauthorizedError, ValidationError } from '@/lib/errors';
 import { UpdateStoryDto } from '@/types/dtos';
+import { auth } from '@clerk/nextjs/server';
 
 // Create a singleton instance of the story service
 const storyService = new StoryService();

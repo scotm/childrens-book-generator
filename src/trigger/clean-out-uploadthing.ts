@@ -1,15 +1,15 @@
-import { logger, task } from "@trigger.dev/sdk/v3";
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { Upload } from "@aws-sdk/lib-storage";
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { Upload } from '@aws-sdk/lib-storage';
+import { logger, task } from '@trigger.dev/sdk/v3';
 
-import fetch from "node-fetch";
-import { env } from "@/env.mjs";
-import { getFileUrl, utapi } from "@/server/uploadthing";
-import { getContentTypeFromFilename } from "@/lib/utils";
+import { env } from '@/env.mjs';
+import { getContentTypeFromFilename } from '@/lib/utils';
+import { getFileUrl, utapi } from '@/server/uploadthing';
+import fetch from 'node-fetch';
 
 // Initialize S3-compatible client for Cloudflare R2
 const s3Configuration = {
-  region: "auto",
+  region: 'auto',
   endpoint: env.R2_ENDPOINT,
   credentials: {
     accessKeyId: env.R2_ACCESS_KEY_ID,
@@ -24,18 +24,16 @@ type OutputFormat = {
 };
 
 export const cleanOutUploadthing = task({
-  id: "clean-out-uploadthing",
-  machine: "micro",
+  id: 'clean-out-uploadthing',
+  machine: 'micro',
   run: async (payload: { uploadThingUrl: string }) => {
-    logger.log("Moving files from UploadThing to Cloudflare R2", payload);
+    logger.log('Moving files from UploadThing to Cloudflare R2', payload);
     const s3Client = new S3Client(s3Configuration);
 
     const uploadthingFiles = await utapi.listFiles({
       limit: 100,
     });
-    const uploadedFiles = uploadthingFiles.files.filter(
-      (file) => file.status === "Uploaded"
-    );
+    const uploadedFiles = uploadthingFiles.files.filter((file) => file.status === 'Uploaded');
 
     const returnData: OutputFormat[] = [];
 
@@ -54,20 +52,20 @@ export const cleanOutUploadthing = task({
         ContentType: contentType,
         Body: imageBuffer,
       };
-      logger.log("uploadParams", uploadParams);
+      logger.log('uploadParams', uploadParams);
 
       const upload = new Upload({
         client: s3Client,
         params: uploadParams,
       });
-      logger.log("Uploading file to R2", { key: r2Key });
+      logger.log('Uploading file to R2', { key: r2Key });
       const response = await upload.done();
-      logger.log("response", { ...response });
+      logger.log('response', { ...response });
       // Upload to Cloudflare R2
 
       returnData.push({
         originalUrl: fileUrl,
-        newUrl: response.Location ?? "",
+        newUrl: response.Location ?? '',
         r2Url: `https://${env.R2_BUCKET}.r2.cloudflarestorage.com/${r2Key}`,
       });
     }

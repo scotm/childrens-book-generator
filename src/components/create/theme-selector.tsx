@@ -3,8 +3,8 @@
 import type { CreateOutlineFormData } from '@/app/create/page';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
-import React from 'react';
 import Image from 'next/image';
+import React from 'react';
 
 interface ThemeSelectorProps {
   value: string;

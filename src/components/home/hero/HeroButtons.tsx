@@ -1,9 +1,9 @@
 'use client';
 
-import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs';
-import Link from 'next/link';
 import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
+import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export function HeroButtons() {
   return (

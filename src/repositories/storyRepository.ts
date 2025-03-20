@@ -1,7 +1,7 @@
 import db from '@/db';
 import { storiesTable, storyChaptersTable, storyContentTable } from '@/db/schema';
 import type { ReadingLevel, StoryTheme } from '@/types';
-import { eq, and } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
 /**
  * Repository for story-related database operations
