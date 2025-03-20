@@ -7,7 +7,7 @@ import { env } from "@/env.mjs";
 
 // Initialize fal.ai client
 fal.config({
-  credentials: process.env.FAL_KEY, // Get this from your fal.ai dashboard
+  credentials: env.FAL_KEY, // Get this from your fal.ai dashboard
 });
 
 // Initialize S3-compatible client for Cloudflare R2

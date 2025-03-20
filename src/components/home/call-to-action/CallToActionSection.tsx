@@ -1,6 +1,6 @@
 import { CallToActionHeader } from './CallToActionHeader';
 import { CallToActionButtons } from './CallToActionButtons';
-import { FloatingElements } from './FloatingElements';
+import { FloatingElements } from '../FloatingElements';
 
 export function CallToActionSection() {
   return (
