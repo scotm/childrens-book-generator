@@ -23,6 +23,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { UploadButton } from '@/lib/utils/uploadthing';
 import { motion } from 'framer-motion';
+import { createApiResponseSchema } from '@/hooks/use-stories';
+import { storySchema, type Story } from '@/types/stories';
 
 // Form schema with validation rules
 const formSchema = z.object({
@@ -70,6 +72,8 @@ export default function CreateStory() {
   const router = useRouter();
   const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
+  const [generatedStory, setGeneratedStory] = useState<Story | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const form = useForm({
     defaultValues: {
@@ -88,14 +92,29 @@ export default function CreateStory() {
     },
     onSubmit: async ({ value }) => {
       setIsLoading(true);
+      setErrorMessage(null);
+      setGeneratedStory(null);
 
       try {
-        // TODO: Implement API call to generate story
-        console.log('Form submitted with values:', value);
-        // For now, we'll just redirect to a mock result
-        router.push('/story/preview');
+        const response = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(value),
+        });
+
+        const rawData = await response.json();
+        const result = createApiResponseSchema(storySchema).parse(rawData);
+
+        if (!result.success) {
+          throw new Error(result.error?.message || 'Failed to generate story');
+        }
+
+        setGeneratedStory(result.data);
+        // Optionally navigate to preview page
+        // router.push('/story/preview');
       } catch (error) {
         console.error('Error generating story:', error);
+        setErrorMessage(error instanceof Error ? error.message : 'Unknown error');
       } finally {
         setIsLoading(false);
       }
@@ -472,6 +491,23 @@ export default function CreateStory() {
           </AnimatedButton>
         </div>
       </form>
+      {errorMessage && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-destructive/10 text-destructive p-4 rounded-lg border border-destructive/20 mt-4"
+        >
+          <p className="text-sm">{errorMessage}</p>
+        </motion.div>
+      )}
+      {generatedStory && (
+        <div className="mt-8">
+          <h2 className="text-xl font-bold mb-4">{generatedStory.title}</h2>
+          <pre className="whitespace-pre-wrap text-sm">
+            {JSON.stringify(generatedStory, null, 2)}
+          </pre>
+        </div>
+      )}
     </FadeIn>
   );
 }
