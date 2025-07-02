@@ -44,7 +44,7 @@ export class StoryService {
             ...chapter,
             content,
           };
-        })
+        }),
       );
 
       return {
@@ -117,7 +117,7 @@ export class StoryService {
       title: string;
       thumbnail: string;
       readingLevel: 'beginner' | 'intermediate' | 'advanced';
-    }
+    },
   ) {
     try {
       // Check if the story exists and belongs to the user

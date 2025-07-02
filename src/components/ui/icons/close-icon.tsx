@@ -35,7 +35,7 @@ export const CloseIcon = React.forwardRef<SVGSVGElement, CloseIconProps>(
         <path d="m6 6 12 12" />
       </svg>
     );
-  }
+  },
 );
 
 CloseIcon.displayName = 'CloseIcon';

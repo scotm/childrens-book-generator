@@ -3,17 +3,18 @@
 import { BackToHomeButton } from '@/components/ui/BackToHomeButton';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { QueryClientProvider } from '@/components/providers/QueryClientProvider';
 import { useStories } from '@/hooks/use-stories';
 import { useUser } from '@clerk/nextjs';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function Dashboard() {
+function DashboardContent() {
   const { user, isLoaded: isUserLoaded } = useUser();
   const router = useRouter();
 
-  // Fetch stories using Tanstack Query
+  // Fetch stories using TanStack Query
   const { data: stories = [], isLoading, isError } = useStories();
 
   // Redirect to login if not authenticated
@@ -95,5 +96,13 @@ export default function Dashboard() {
         )}
       </div>
     </main>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <QueryClientProvider>
+      <DashboardContent />
+    </QueryClientProvider>
   );
 }

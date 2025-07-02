@@ -10,7 +10,7 @@ const storyService = new StoryService();
 // Higher-order function to handle auth and error handling
 const withAuth = async (
   handler: (userId: string, req: Request) => Promise<Response>,
-  req: Request
+  req: Request,
 ) => {
   try {
     const { userId } = await auth();

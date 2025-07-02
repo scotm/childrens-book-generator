@@ -128,18 +128,35 @@ export default function StoryPreview() {
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      // TODO: Implement API call to save the story
-      // In a real app, this would be something like:
-      // await fetch('/api/stories', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ title: mockStory.title, content: mockStory.content })
-      // });
+      const storyData = {
+        title: mockStory.title,
+        // Use the first image as a placeholder thumbnail
+        thumbnail: mockStory.content.find((c) => c.type === 'image')?.src ?? '',
+        readingLevel: 'beginner' as const,
+        chapters: [
+          {
+            title: mockStory.title,
+            content: mockStory.content.map((item) =>
+              item.type === 'text'
+                ? { type: 'text' as const, text: item.content }
+                : { type: 'image' as const, alt: item.alt, src: item.src }
+            ),
+          },
+        ],
+      };
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const response = await fetch('/api/story', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(storyData),
+      });
 
-      // Redirect to dashboard after saving
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error?.message || 'Failed to save story');
+      }
+
       router.push('/dashboard');
     } catch (error) {
       console.error('Error saving story:', error);

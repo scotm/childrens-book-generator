@@ -1,7 +1,33 @@
 import { HowItWorksHeader } from './HowItWorksHeader';
 import { StepCard } from './StepCard';
 import { StartCreatingButton } from './StartCreatingButton';
-import { steps } from './how-it-works-data';
+import book from '../../../public/images/pixabay/book.svg';
+import girl from '../../../public/images/pixabay/girl.svg';
+import Image from 'next/image';
+
+export const steps = [
+  {
+    id: 'step-1',
+    number: 1,
+    title: 'Create a Profile',
+    description: "Add your child's details and preferences",
+    emoji: <Image src={girl} alt="Girl" width={300} height={300} />,
+  },
+  {
+    id: 'step-2',
+    number: 2,
+    title: 'Customize the Story',
+    description: 'Choose a theme, add characters, and set the scene',
+    emoji: '✏️',
+  },
+  {
+    id: 'step-3',
+    number: 3,
+    title: 'Generate & Enjoy',
+    description: "We'll create a unique story featuring your child",
+    emoji: <Image src={book} alt="Book" width={300} height={300} />,
+  },
+];
 
 export function HowItWorksSection() {
   return (
@@ -17,7 +43,7 @@ export function HowItWorksSection() {
             <StepCard
               key={step.id}
               number={step.number}
-              emoji={step.emoji}
+              graphic={step.emoji}
               title={step.title}
               description={step.description}
               isReversed={index % 2 === 1}
