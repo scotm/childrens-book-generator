@@ -23,7 +23,7 @@ export const ThemeSelector = ({ value, onChange, themes }: ThemeSelectorProps) =
           whileTap={{ scale: 0.95 }}
           className={cn(
             'theme-option cursor-pointer rounded-lg p-4 flex flex-col items-center justify-center gap-2',
-            value === theme.value && 'theme-option-selected'
+            value === theme.value && 'theme-option-selected',
           )}
           onClick={() => onChange(theme.value)}
           style={{
