@@ -99,7 +99,7 @@ export class StoryRepository {
       title: string;
       thumbnail: string;
       readingLevel: 'beginner' | 'intermediate' | 'advanced';
-    }
+    },
   ) {
     const [updatedStory] = await db
       .update(storiesTable)

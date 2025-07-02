@@ -1,15 +1,24 @@
-// src/app/create/page.tsx
 'use client';
-
 import { useUser } from '@clerk/nextjs';
 import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { z } from 'zod';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { generateStory, type StoryFormData } from '../actions';
 
-import { ThemeSelector } from '@/components/create/theme-selector';
-import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
-import { FadeIn, StaggerContainer } from '@/components/ui/enhanced/animated-elements';
+import { CSSButton } from '@/components/ui/animation/css-button';
+import { CSSFadeIn } from '@/components/ui/animation/css-animation';
+
+// Lazy load the ThemeSelector which is below the fold
+const ThemeSelector = dynamic(
+  () => import('@/components/create/theme-selector').then((mod) => mod.ThemeSelector),
+  {
+    loading: () => <div className="theme-selector-skeleton" />,
+  },
+);
+
 import {
   CardContent,
   CardHeader,
@@ -23,6 +32,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { UploadButton } from '@/lib/utils/uploadthing';
 import { motion } from 'framer-motion';
+import { StaggerContainer } from '@/components/ui/enhanced/Animated/StaggerContainer';
 
 // Form schema with validation rules
 const formSchema = z.object({
@@ -43,11 +53,6 @@ const formSchema = z.object({
   ] as const),
   additionalDetails: z.string(),
 });
-
-type FormError = {
-  message?: string;
-  path?: string[];
-};
 
 // Theme options with icons and colors
 const themeOptions = [
@@ -90,10 +95,30 @@ export default function CreateStory() {
       setIsLoading(true);
 
       try {
-        // TODO: Implement API call to generate story
-        console.log('Form submitted with values:', value);
-        // For now, we'll just redirect to a mock result
-        router.push('/story/preview');
+        // Cast the form values to the correct types
+        const formData: StoryFormData = {
+          childName: value.childName,
+          childAge: value.childAge,
+          readingLevel: value.readingLevel as "beginner" | "intermediate" | "advanced",
+          childPhoto: value.childPhoto || undefined,
+          petName: value.petName || undefined,
+          petType: value.petType || undefined,
+          petPhoto: value.petPhoto || undefined,
+          storyTheme: value.storyTheme as "adventure" | "fantasy" | "space" | "underwater" | "dinosaurs" | "jungle",
+          additionalDetails: value.additionalDetails || undefined,
+        };
+        
+        // Use the server action to generate the story
+        const result = await generateStory(formData);
+        
+        if (result.success) {
+          // Redirect to the story page
+          router.push(`/story/${result.storyId}`);
+        } else {
+          // Handle error
+          console.error('Error generating story:', result.message);
+          alert(`Failed to generate story: ${result.message}`);
+        }
       } catch (error) {
         console.error('Error generating story:', error);
       } finally {
@@ -102,24 +127,8 @@ export default function CreateStory() {
     },
   });
 
-  // if (!user || !user.primaryEmailAddress) {
-  //   return (
-  //     <FadeIn>
-  //       <div className="bg-destructive/10 text-destructive p-4 rounded-lg border border-destructive/20">
-  //         <p className="text-sm">
-  //           You must have a verified email address to create a new story. Please{' '}
-  //           <Link href="/account" className="text-primary underline">
-  //             verify your email address
-  //           </Link>{' '}
-  //           to continue.
-  //         </p>
-  //       </div>
-  //     </FadeIn>
-  //   );
-  // }
-
   return (
-    <FadeIn>
+    <CSSFadeIn>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -230,16 +239,18 @@ export default function CreateStory() {
                     <div className="mt-2">
                       {field.state.value ? (
                         <div className="relative w-full h-40 rounded-md overflow-hidden mb-2">
-                          <img
+                          <Image
                             src={field.state.value}
-                            // biome-ignore lint/a11y/noRedundantAlt: <explanation>
                             alt="Child's photo"
-                            className="w-full h-full object-cover"
+                            fill
+                            sizes="(max-width: 768px) 100vw, 400px"
+                            className="object-cover"
+                            priority={false}
                           />
                           <button
                             type="button"
                             onClick={() => field.handleChange('')}
-                            className="absolute top-2 right-2 bg-destructive text-destructive-foreground rounded-full p-1"
+                            className="absolute top-2 right-2 bg-destructive text-destructive-foreground rounded-full p-1 z-10"
                           >
                             <CloseIcon />
                           </button>
@@ -335,16 +346,18 @@ export default function CreateStory() {
                     <div className="mt-2">
                       {field.state.value ? (
                         <div className="relative w-full h-40 rounded-md overflow-hidden mb-2">
-                          <img
+                          <Image
                             src={field.state.value}
-                            // biome-ignore lint/a11y/noRedundantAlt: <explanation>
                             alt="Pet's photo"
-                            className="w-full h-full object-cover"
+                            fill
+                            sizes="(max-width: 768px) 100vw, 400px"
+                            className="object-cover"
+                            priority={false}
                           />
                           <button
                             type="button"
                             onClick={() => field.handleChange('')}
-                            className="absolute top-2 right-2 bg-destructive text-destructive-foreground rounded-full p-1"
+                            className="absolute top-2 right-2 bg-destructive text-destructive-foreground rounded-full p-1 z-10"
                           >
                             <CloseIcon />
                           </button>
@@ -395,7 +408,7 @@ export default function CreateStory() {
                   >
                     <ThemeSelector
                       value={field.state.value}
-                      onChange={(value) => field.setValue(value)}
+                      onChange={(value: string) => field.setValue(value)}
                       themes={themeOptions}
                     />
                   </EnhancedFormField>
@@ -434,12 +447,12 @@ export default function CreateStory() {
             animate={{ opacity: 1, y: 0 }}
             className="bg-destructive/10 text-destructive p-4 rounded-lg border border-destructive/20"
           >
-            {(form.state.errors).map((error) => {
+            {form.state.errors.map((error) => {
               if (!error) return null;
               console.log('Error:', error);
 
               const errorId = error.path?.join('.') || crypto.randomUUID();
-              const message = error.message.join(",") || 'Unknown error';
+              const message = error.message.join(',') || 'Unknown error';
 
               return message ? (
                 <p key={errorId} className="text-sm">
@@ -451,7 +464,7 @@ export default function CreateStory() {
         )}
 
         <div className="flex justify-end">
-          <AnimatedButton
+          <CSSButton
             type="submit"
             size="lg"
             disabled={isLoading || form.state.isSubmitting || !form.state.canSubmit}
@@ -469,9 +482,9 @@ export default function CreateStory() {
                 <span className="ml-2">✨</span>
               </>
             )}
-          </AnimatedButton>
+          </CSSButton>
         </div>
       </form>
-    </FadeIn>
+    </CSSFadeIn>
   );
 }
