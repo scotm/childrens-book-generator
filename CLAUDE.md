@@ -20,8 +20,8 @@
 - Drizzle ORM with PostgreSQL
 - Neon database adapter
 - Zod (validation)
-- Tanstack Form with Zod adapter
-- Tanstack Query
+ - TanStack Form with Zod adapter
+ - TanStack Query
 - Biome (linting and formatting)
 - Bun as the package manager
 
