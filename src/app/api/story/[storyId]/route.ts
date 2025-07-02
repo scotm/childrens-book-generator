@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs/server';
 import { createSuccessResponse, handleError } from '@/lib/responseHelpers';
 import { StoryService } from '@/services/storyService';
 import { NotFoundError, UnauthorizedError, ValidationError } from '@/lib/errors';
+import { validateId } from '@/lib/utils/validateId';
 import { UpdateStoryDto } from '@/types/dtos';
 
 // Create a singleton instance of the story service
@@ -15,13 +16,9 @@ async function validateAuth() {
 }
 
 // Utility function to parse and validate story ID
-function validateStoryId(storyId: string) {
-  if (!storyId) throw new ValidationError('Invalid story ID');
-
-  const id = Number.parseInt(storyId, 10);
-  if (Number.isNaN(id)) throw new ValidationError('Invalid story ID');
-
-  return id;
+// Accept the storyId value from the URL path parameters
+export function validateStoryId(storyId: string | undefined) {
+  return validateId(storyId);
 }
 
 // Higher-order function to handle route execution with error handling
@@ -35,10 +32,13 @@ async function executeRoute<T>(handler: () => Promise<T>) {
 }
 
 // GET /api/story/[storyId] - Get a specific story with its chapters and content
-export async function GET(req: Request, { params }: { params: Promise<string> }) {
+export async function GET(
+  req: Request,
+  context: { params: { storyId: string } }
+) {
   return executeRoute(async () => {
     const userId = await validateAuth();
-    const id = validateStoryId(await params);
+    const id = validateStoryId(context.params.storyId);
 
     const story = await storyService.getStoryById(id, userId);
     if (!story) throw new NotFoundError('Story not found');
@@ -48,10 +48,13 @@ export async function GET(req: Request, { params }: { params: Promise<string> })
 }
 
 // PUT /api/story/[storyId] - Update a story
-export async function PUT(req: Request, { params }: { params: Promise<string> }) {
+export async function PUT(
+  req: Request,
+  context: { params: { storyId: string } }
+) {
   return executeRoute(async () => {
     const userId = await validateAuth();
-    const id = validateStoryId(await params);
+    const id = validateStoryId(context.params.storyId);
 
     const body = await req.json();
     const validationResult = UpdateStoryDto.safeParse(body);
@@ -68,10 +71,13 @@ export async function PUT(req: Request, { params }: { params: Promise<string> })
 }
 
 // DELETE /api/story/[storyId] - Delete a story
-export async function DELETE(req: Request, { params }: { params: Promise<string> }) {
+export async function DELETE(
+  req: Request,
+  context: { params: { storyId: string } }
+) {
   return executeRoute(async () => {
     const userId = await validateAuth();
-    const id = validateStoryId(await params);
+    const id = validateStoryId(context.params.storyId);
 
     const success = await storyService.deleteStory(id, userId);
     if (!success) throw new NotFoundError('Story not found');
