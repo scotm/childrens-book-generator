@@ -13,7 +13,7 @@ function StoryContent({ id }: { id: string }) {
   const { user, isLoaded: isUserLoaded } = useUser();
   const router = useRouter();
 
-  // Fetch story data using Tanstack Query
+  // Fetch story data using TanStack Query
   const { data: story, isLoading, isError, error } = useStory(id);
 
   // Redirect to login if not authenticated

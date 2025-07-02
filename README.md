@@ -22,7 +22,7 @@ Tales Together is a personalized children's book generator that creates custom s
 - **Authentication**: Clerk
 - **AI Integration**: OpenAI API and Anthropic (AI-SDK) for story generation
 - **Database**: PostgreSQL with Drizzle ORM, Neon database adapter
-- **Form Handling**: Tanstack Form with Zod adapter, Tanstack Query
+ - **Form Handling**: TanStack Form with Zod adapter, TanStack Query
 - **Validation**: Zod
 - **File Uploads**: UploadThing integration
 - **Linting/Formatting**: Biome

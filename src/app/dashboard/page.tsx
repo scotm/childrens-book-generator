@@ -14,7 +14,7 @@ function DashboardContent() {
   const { user, isLoaded: isUserLoaded } = useUser();
   const router = useRouter();
 
-  // Fetch stories using Tanstack Query
+  // Fetch stories using TanStack Query
   const { data: stories = [], isLoading, isError } = useStories();
 
   // Redirect to login if not authenticated
