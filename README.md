@@ -70,6 +70,23 @@ Tales Together is a personalized children's book generator that creates custom s
 
 5. Open [http://localhost:3000](http://localhost:3000) to see the application
 
+## Testing
+
+Run the Vitest suite using Bun's Node-compatible runtime:
+
+```bash
+bun x vitest
+```
+
+The shorthand `bun test` runs Bun's built-in test runner, which this
+project doesn't use.
+
+A VS Code launch configuration *Bun: debug tests* is available for debugging.
+
+React components are tested with **React Testing Library** and DOM assertions
+from `@testing-library/jest-dom`, loaded via `test/setup.ts`.
+
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
