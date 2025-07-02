@@ -6,7 +6,7 @@ export const createErrorResponse = (
   status: number,
   message: string,
   code: string,
-  details?: unknown
+  details?: unknown,
 ) => {
   return NextResponse.json(
     {
@@ -17,7 +17,7 @@ export const createErrorResponse = (
         details,
       },
     },
-    { status }
+    { status },
   );
 };
 
@@ -50,7 +50,7 @@ export const handleError = (error: unknown) => {
       500,
       error.message,
       error.code,
-      error.originalError instanceof Error ? error.originalError.message : undefined
+      error.originalError instanceof Error ? error.originalError.message : undefined,
     );
   }
 
@@ -59,6 +59,6 @@ export const handleError = (error: unknown) => {
     500,
     'An unexpected error occurred',
     'INTERNAL_SERVER_ERROR',
-    error instanceof Error ? error.message : undefined
+    error instanceof Error ? error.message : undefined,
   );
 };

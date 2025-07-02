@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs/server';
 import { createSuccessResponse, handleError } from '@/lib/responseHelpers';
 import { StoryService } from '@/services/storyService';
-import { NotFoundError, UnauthorizedError } from '@/lib/errors';
+import { NotFoundError, UnauthorizedError, ValidationError } from '@/lib/errors';
 import { validateId } from '@/lib/utils/validateId';
 import { UpdateStoryDto } from '@/types/dtos';
 

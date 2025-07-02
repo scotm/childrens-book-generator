@@ -2,32 +2,32 @@
 
 import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs';
 import Link from 'next/link';
-import { AnimatedButton } from '@/components/ui/enhanced/animated-button';
+import { CSSButton } from '@/components/ui/animation/css-button';
 
 export function CallToActionButtons() {
   return (
     <div className="flex flex-col sm:flex-row gap-4 justify-center">
       <SignedOut>
         <SignInButton mode="modal">
-          <AnimatedButton
+          <CSSButton
             size="lg"
             className="rounded-full px-10 py-6 text-lg shadow-lg shadow-primary/20"
             animationType="bounce"
           >
             Start Creating Stories
-          </AnimatedButton>
+          </CSSButton>
         </SignInButton>
       </SignedOut>
 
       <SignedIn>
         <Link href="/create">
-          <AnimatedButton
+          <CSSButton
             size="lg"
             className="rounded-full px-10 py-6 text-lg shadow-lg shadow-primary/20"
             animationType="bounce"
           >
             Create Your Next Story
-          </AnimatedButton>
+          </CSSButton>
         </Link>
       </SignedIn>
     </div>
