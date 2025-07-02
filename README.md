@@ -22,7 +22,7 @@ Tales Together is a personalized children's book generator that creates custom s
 - **Authentication**: Clerk
 - **AI Integration**: OpenAI API and Anthropic (AI-SDK) for story generation
 - **Database**: PostgreSQL with Drizzle ORM, Neon database adapter
-- **Form Handling**: Tanstack Form with Zod adapter, Tanstack Query
+ - **Form Handling**: TanStack Form with Zod adapter, TanStack Query
 - **Validation**: Zod
 - **File Uploads**: UploadThing integration
 - **Linting/Formatting**: Biome
@@ -69,6 +69,23 @@ Tales Together is a personalized children's book generator that creates custom s
    ```
 
 5. Open [http://localhost:3000](http://localhost:3000) to see the application
+
+## Testing
+
+Run the Vitest suite using Bun's Node-compatible runtime:
+
+```bash
+bun x vitest
+```
+
+The shorthand `bun test` runs Bun's built-in test runner, which this
+project doesn't use.
+
+A VS Code launch configuration *Bun: debug tests* is available for debugging.
+
+React components are tested with **React Testing Library** and DOM assertions
+from `@testing-library/jest-dom`, loaded via `test/setup.ts`.
+
 
 ## Contributing
 
